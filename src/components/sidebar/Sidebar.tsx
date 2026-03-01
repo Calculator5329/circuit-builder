@@ -17,10 +17,7 @@ export function Sidebar() {
       }}
     >
       {/* Tab bar */}
-      <div
-        className="flex"
-        style={{ borderBottom: '1px solid var(--border-dim)' }}
-      >
+      <div className="flex" style={{ borderBottom: '1px solid var(--border-dim)' }}>
         {(['gates', 'library'] as Tab[]).map(t => {
           const active = tab === t
           return (
@@ -32,23 +29,18 @@ export function Sidebar() {
                 padding: '10px 0',
                 fontFamily: 'var(--font-display)',
                 fontSize: 10,
-                letterSpacing: '0.14em',
-                textTransform: 'uppercase',
+                letterSpacing: '0.1em',
                 cursor: 'pointer',
                 background: 'transparent',
                 border: 'none',
                 borderBottom: active ? '2px solid var(--amber)' : '2px solid transparent',
-                color: active ? 'var(--amber)' : 'var(--text-dim)',
+                color: active ? 'var(--text-bright)' : 'var(--text-dim)',
                 transition: 'color 0.15s, border-color 0.15s',
               }}
-              onMouseEnter={e => {
-                if (!active) e.currentTarget.style.color = 'var(--text-primary)'
-              }}
-              onMouseLeave={e => {
-                if (!active) e.currentTarget.style.color = 'var(--text-dim)'
-              }}
+              onMouseEnter={e => { if (!active) e.currentTarget.style.color = 'var(--text-primary)' }}
+              onMouseLeave={e => { if (!active) e.currentTarget.style.color = 'var(--text-dim)' }}
             >
-              {t === 'gates' ? 'GATES' : 'LIBRARY'}
+              {t === 'gates' ? 'Gates' : 'Library'}
             </button>
           )
         })}

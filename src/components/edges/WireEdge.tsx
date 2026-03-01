@@ -15,25 +15,20 @@ export function WireEdge({
   let stroke: string
   let strokeWidth: number
   let strokeDasharray: string | undefined
-  let filterClass: string | undefined
 
   if (selected) {
-    stroke = '#ffb300'
+    stroke = '#f59e0b'
     strokeWidth = 2.5
-    filterClass = undefined
   } else if (signal === 1) {
-    stroke = '#00ff41'
+    stroke = '#22c55e'
     strokeWidth = 2.5
-    filterClass = 'wire-high'
   } else if (signal === 0) {
-    stroke = '#1a3a1a'
+    stroke = '#1e293b'
     strokeWidth = 1.5
-    filterClass = undefined
   } else {
-    stroke = '#ffb300'
+    stroke = '#f59e0b'
     strokeWidth = 1.5
     strokeDasharray = '5 4'
-    filterClass = undefined
   }
 
   return (
@@ -55,8 +50,8 @@ export function WireEdge({
         stroke={stroke}
         strokeDasharray={strokeDasharray}
         strokeLinecap="round"
-        className={`react-flow__edge-path${filterClass ? ` ${filterClass}` : ''}`}
-        style={{ opacity: signal === 0 ? 0.55 : 1 }}
+        className="react-flow__edge-path"
+        style={{ opacity: signal === 0 ? 0.45 : 1 }}
       />
     </>
   )

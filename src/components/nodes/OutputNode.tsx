@@ -16,14 +16,14 @@ export function OutputNode({ data, selected }: NodeProps) {
           width: 48,
           height: 48,
           borderRadius: '50%',
-          background: '#0a0f0a',
+          background: '#0d1117',
           boxShadow: selected
-            ? '0 0 0 2px #ffb300, 0 0 14px rgba(255,179,0,0.5)'
+            ? '0 0 0 2px #f59e0b, 0 0 12px rgba(245,158,11,0.4)'
             : isOn
-              ? '0 0 0 1px #00ff41, 0 0 20px rgba(0,255,65,0.6), 0 0 40px rgba(0,255,65,0.25)'
+              ? '0 0 0 1px #22c55e, 0 0 18px rgba(34,197,94,0.5), 0 0 32px rgba(34,197,94,0.2)'
               : isFloat
-                ? '0 0 0 1px #ffb30066, 0 0 8px rgba(255,179,0,0.15)'
-                : '0 0 0 1px #1a3a1a',
+                ? '0 0 0 1px rgba(245,158,11,0.4)'
+                : '0 0 0 1px #2d3748',
           transition: 'box-shadow 0.2s ease',
           display: 'flex',
           alignItems: 'center',
@@ -38,17 +38,18 @@ export function OutputNode({ data, selected }: NodeProps) {
             height: 34,
             borderRadius: '50%',
             background: isOn
-              ? 'radial-gradient(circle at 35% 30%, #ccffdd, #00ff41 45%, #00bb2e 75%, #005a18)'
+              ? 'radial-gradient(circle at 35% 30%, #bbf7d0, #22c55e 45%, #15803d 75%, #052e16)'
               : isFloat
-                ? 'radial-gradient(circle at 35% 30%, #3a2f00, #ffb30033 45%, #1a1000)'
-                : 'radial-gradient(circle at 35% 30%, #0f1a0f, #060b06)',
+                ? 'radial-gradient(circle at 35% 30%, #2d2100, rgba(245,158,11,0.2) 45%, #1a1400)'
+                : 'radial-gradient(circle at 35% 30%, #1e293b, #0f172a)',
             boxShadow: isOn
-              ? 'inset 0 -3px 8px rgba(0,0,0,0.3), inset 0 2px 4px rgba(255,255,255,0.15)'
-              : 'inset 0 2px 6px rgba(0,0,0,0.7)',
+              ? 'inset 0 -3px 8px rgba(0,0,0,0.25), inset 0 2px 4px rgba(255,255,255,0.1)'
+              : 'inset 0 2px 6px rgba(0,0,0,0.6)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
             transition: 'background 0.2s ease',
+            position: 'relative',
           }}
         >
           {/* Lens highlight */}
@@ -59,7 +60,7 @@ export function OutputNode({ data, selected }: NodeProps) {
             width: 8,
             height: 5,
             borderRadius: '50%',
-            background: isOn ? 'rgba(255,255,255,0.45)' : 'rgba(255,255,255,0.06)',
+            background: isOn ? 'rgba(255,255,255,0.4)' : 'rgba(255,255,255,0.05)',
             transform: 'rotate(-25deg)',
             pointerEvents: 'none',
           }} />
@@ -67,7 +68,7 @@ export function OutputNode({ data, selected }: NodeProps) {
             fontFamily: 'var(--font-display)',
             fontSize: 11,
             fontWeight: 600,
-            color: isOn ? '#002b0d' : isFloat ? '#7a5500' : '#1a3a1a',
+            color: isOn ? '#052e16' : isFloat ? '#78350f' : '#4a5568',
             lineHeight: 1,
             userSelect: 'none',
             zIndex: 1,
@@ -77,12 +78,12 @@ export function OutputNode({ data, selected }: NodeProps) {
         </div>
       </div>
 
-      {/* PCB silkscreen label */}
+      {/* Label */}
       <span style={{
         fontFamily: 'var(--font-display)',
         fontSize: 9,
-        color: selected ? '#ffb30099' : '#2a5a2a',
-        letterSpacing: '0.08em',
+        color: selected ? 'rgba(245,158,11,0.7)' : '#4a5568',
+        letterSpacing: '0.06em',
         maxWidth: 64,
         overflow: 'hidden',
         textOverflow: 'ellipsis',
@@ -100,7 +101,7 @@ export function OutputNode({ data, selected }: NodeProps) {
           width: 9,
           height: 9,
           borderRadius: 2,
-          border: '1px solid #060b06',
+          border: '1px solid #0d1117',
           top: '42%',
         }}
       />

@@ -22,12 +22,12 @@ export function InputNode({ data, id, selected }: NodeProps) {
           width: 48,
           height: 48,
           borderRadius: '50%',
-          background: '#0a0f0a',
+          background: '#0d1117',
           boxShadow: selected
-            ? '0 0 0 2px #ffb300, 0 0 14px rgba(255,179,0,0.5)'
+            ? '0 0 0 2px #f59e0b, 0 0 12px rgba(245,158,11,0.4)'
             : isOn
-              ? '0 0 0 2px #00ff41, 0 0 18px rgba(0,255,65,0.55), 0 0 30px rgba(0,255,65,0.2)'
-              : '0 0 0 1px #254525, inset 0 0 0 1px #172817',
+              ? '0 0 0 2px #22c55e, 0 0 16px rgba(34,197,94,0.45)'
+              : '0 0 0 1px #2d3748, inset 0 0 0 1px #1f2637',
           transition: 'box-shadow 0.15s ease',
           display: 'flex',
           alignItems: 'center',
@@ -44,11 +44,11 @@ export function InputNode({ data, id, selected }: NodeProps) {
             height: 32,
             borderRadius: '50%',
             background: isOn
-              ? 'radial-gradient(circle at 38% 35%, #6fffaa, #00ff41 55%, #00bb2e)'
-              : 'radial-gradient(circle at 38% 35%, #1e3a1e, #0d2b0d 55%, #071207)',
+              ? 'radial-gradient(circle at 38% 35%, #86efac, #22c55e 55%, #16a34a)'
+              : 'radial-gradient(circle at 38% 35%, #1e293b, #0f172a 55%, #0a0f1a)',
             boxShadow: isOn
-              ? 'inset 0 -2px 4px rgba(0,0,0,0.4)'
-              : 'inset 0 2px 4px rgba(0,0,0,0.6), inset 0 -1px 2px rgba(255,255,255,0.04)',
+              ? 'inset 0 -2px 4px rgba(0,0,0,0.3)'
+              : 'inset 0 2px 4px rgba(0,0,0,0.5), inset 0 -1px 2px rgba(255,255,255,0.04)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -60,7 +60,7 @@ export function InputNode({ data, id, selected }: NodeProps) {
             fontFamily: 'var(--font-display)',
             fontSize: 12,
             fontWeight: 600,
-            color: isOn ? '#002b0d' : '#1a4a1a',
+            color: isOn ? '#052e16' : '#4a5568',
             lineHeight: 1,
             userSelect: 'none',
           }}>
@@ -69,12 +69,12 @@ export function InputNode({ data, id, selected }: NodeProps) {
         </div>
       </div>
 
-      {/* PCB silkscreen label */}
+      {/* Label */}
       <span style={{
         fontFamily: 'var(--font-display)',
         fontSize: 9,
-        color: selected ? '#ffb30099' : '#2a5a2a',
-        letterSpacing: '0.08em',
+        color: selected ? 'rgba(245,158,11,0.7)' : '#4a5568',
+        letterSpacing: '0.06em',
         maxWidth: 64,
         overflow: 'hidden',
         textOverflow: 'ellipsis',
@@ -92,7 +92,7 @@ export function InputNode({ data, id, selected }: NodeProps) {
           width: 9,
           height: 9,
           borderRadius: 2,
-          border: '1px solid #060b06',
+          border: '1px solid #0d1117',
           top: '42%',
         }}
       />

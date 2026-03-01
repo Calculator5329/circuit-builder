@@ -27,42 +27,40 @@ const SYMBOL_MAP: Record<string, { symbol: React.ComponentType<{ stroke?: string
 function IOPreview({ gateType }: { gateType: string }) {
   const isInput = gateType === 'INPUT'
   const isDecIn = gateType === 'DECIMAL_INPUT'
-  const isDecOut = gateType === 'DECIMAL_OUTPUT'
 
-  if (isInput) {
+  if (isInput || gateType === 'OUTPUT') {
     return (
       <div style={{
         width: 24, height: 24, borderRadius: '50%',
-        background: 'radial-gradient(circle at 38% 35%, #1e3a1e, #0d2b0d)',
-        boxShadow: '0 0 0 1px #254525',
+        background: 'var(--bg-surface)',
+        boxShadow: '0 0 0 1px var(--border-mid)',
         display: 'flex', alignItems: 'center', justifyContent: 'center',
       }}>
-        <span style={{ fontFamily: 'var(--font-display)', fontSize: 9, color: '#2a5a2a' }}>SW</span>
+        <span style={{
+          fontFamily: 'var(--font-display)',
+          fontSize: 8,
+          color: 'var(--text-dim)',
+        }}>
+          {isInput ? 'SW' : 'LED'}
+        </span>
       </div>
     )
   }
-  if (gateType === 'OUTPUT') {
-    return (
-      <div style={{
-        width: 24, height: 24, borderRadius: '50%',
-        background: 'radial-gradient(circle at 35% 30%, #0f1a0f, #060b06)',
-        boxShadow: '0 0 0 1px #1a3a1a',
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-      }}>
-        <span style={{ fontFamily: 'var(--font-display)', fontSize: 9, color: '#2a5a2a' }}>LED</span>
-      </div>
-    )
-  }
-  const label = isDecIn ? 'DEC' : isDecOut ? 'BIN' : '?'
-  const color = isDecIn ? '#254525' : '#3a2800'
   return (
     <div style={{
       width: 36, height: 24, borderRadius: 2,
       background: 'var(--bg-surface)',
-      boxShadow: `0 0 0 1px ${color}`,
+      boxShadow: '0 0 0 1px var(--border-mid)',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
     }}>
-      <span style={{ fontFamily: 'var(--font-display)', fontSize: 9, color, letterSpacing: '0.06em' }}>{label}</span>
+      <span style={{
+        fontFamily: 'var(--font-display)',
+        fontSize: 8,
+        color: 'var(--text-dim)',
+        letterSpacing: '0.04em',
+      }}>
+        {isDecIn ? 'DEC' : 'BIN'}
+      </span>
     </div>
   )
 }
@@ -88,28 +86,20 @@ export function GatePaletteItem({ gateType, label, description }: GatePaletteIte
         display: 'flex',
         alignItems: 'center',
         gap: 10,
-        padding: '7px 10px',
+        padding: '6px 10px',
         borderRadius: 3,
         cursor: 'grab',
         background: hovered ? 'var(--bg-surface)' : 'transparent',
         boxShadow: hovered ? 'inset 0 0 0 1px var(--border-hi)' : 'inset 0 0 0 1px transparent',
-        transition: 'background 0.12s, box-shadow 0.12s',
+        transition: 'background 0.1s, box-shadow 0.1s',
         userSelect: 'none',
       }}
     >
-      {/* Symbol preview */}
-      <div style={{
-        width: 40,
-        height: 28,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flexShrink: 0,
-      }}>
+      <div style={{ width: 40, height: 28, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
         {sym ? (
           <svg width={40} height={28} viewBox={sym.viewBox}>
             <g transform="scale(0.5) translate(0, 0)">
-              <sym.symbol stroke={hovered ? '#3a7a3a' : '#254525'} />
+              <sym.symbol stroke={hovered ? '#4a5568' : '#2d3748'} />
             </g>
           </svg>
         ) : (
@@ -117,14 +107,13 @@ export function GatePaletteItem({ gateType, label, description }: GatePaletteIte
         )}
       </div>
 
-      {/* Label + description */}
       <div style={{ minWidth: 0, flex: 1 }}>
         <div style={{
           fontFamily: 'var(--font-display)',
           fontSize: 11,
           color: hovered ? 'var(--text-bright)' : 'var(--text-primary)',
-          letterSpacing: '0.06em',
-          transition: 'color 0.12s',
+          letterSpacing: '0.04em',
+          transition: 'color 0.1s',
         }}>
           {label}
         </div>

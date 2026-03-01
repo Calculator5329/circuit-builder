@@ -30,8 +30,8 @@ export function CustomGateNode({ data, selected }: NodeProps) {
   const outputCount = savedCircuit.outputPorts.length
   const rows = Math.max(inputCount, outputCount, 1)
   const height = rows * 28 + 44
-  const borderColor = selected ? '#ffb300' : '#3a2800'
-  const glowColor = selected ? 'rgba(255,179,0,0.4)' : 'rgba(255,179,0,0.02)'
+  const borderColor = selected ? '#f59e0b' : '#2d3748'
+  const glowColor = selected ? 'rgba(245,158,11,0.3)' : 'transparent'
 
   return (
     <div
@@ -39,7 +39,7 @@ export function CustomGateNode({ data, selected }: NodeProps) {
         position: 'relative',
         minWidth: 124,
         height,
-        background: '#070d07',
+        background: '#0d1117',
         borderRadius: 3,
         boxShadow: `inset 0 0 0 1px ${borderColor}, 0 0 12px ${glowColor}`,
         transition: 'box-shadow 0.15s',
@@ -65,7 +65,7 @@ export function CustomGateNode({ data, selected }: NodeProps) {
         <div style={{
           fontFamily: 'var(--font-display)',
           fontSize: 10,
-          color: selected ? '#ffb300' : '#7a5500',
+          color: selected ? '#f59e0b' : 'var(--text-primary)',
           letterSpacing: '0.06em',
           overflow: 'hidden',
           textOverflow: 'ellipsis',
@@ -90,7 +90,7 @@ export function CustomGateNode({ data, selected }: NodeProps) {
                 width: 9,
                 height: 9,
                 borderRadius: 2,
-                border: '1px solid #060b06',
+                border: '1px solid #0d1117',
               }}
             />
             <span style={{
@@ -123,7 +123,7 @@ export function CustomGateNode({ data, selected }: NodeProps) {
                 width: 9,
                 height: 9,
                 borderRadius: 2,
-                border: '1px solid #060b06',
+                border: '1px solid #0d1117',
               }}
             />
             <span style={{

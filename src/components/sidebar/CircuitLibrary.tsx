@@ -43,17 +43,17 @@ export function CircuitLibrary() {
         disabled={nodes.length === 0}
         className="w-full justify-center"
       >
-        + SAVE AS COMPONENT
+        + Save as component
       </Button>
 
       {!hasIO && nodes.length > 0 && (
         <p style={{
           fontFamily: 'var(--font-mono)',
           fontSize: 10,
-          color: '#7a5500',
+          color: 'var(--text-dim)',
           padding: '4px 4px',
           lineHeight: 1.5,
-          borderLeft: '2px solid #ffb30044',
+          borderLeft: '2px solid rgba(245,158,11,0.3)',
           paddingLeft: 8,
         }}>
           TIP: add INPUT + OUTPUT nodes to define this component's ports.
@@ -68,7 +68,7 @@ export function CircuitLibrary() {
           <div style={{
             fontFamily: 'var(--font-display)',
             fontSize: 22,
-            color: 'var(--border-dim)',
+            color: 'var(--border-mid)',
             marginBottom: 8,
           }}>[ ]</div>
           <p style={{
@@ -88,7 +88,7 @@ export function CircuitLibrary() {
         </div>
       )}
 
-      <Modal open={saveOpen} onClose={() => setSaveOpen(false)} title="SAVE AS COMPONENT">
+      <Modal open={saveOpen} onClose={() => setSaveOpen(false)} title="Save as Component">
         <div className="flex flex-col gap-3">
           <div>
             <label style={{
@@ -135,8 +135,8 @@ export function CircuitLibrary() {
             />
           </div>
           <div className="flex gap-2 justify-end mt-1">
-            <Button variant="ghost" onClick={() => setSaveOpen(false)}>CANCEL</Button>
-            <Button variant="primary" onClick={handleSave} disabled={!name.trim()}>SAVE</Button>
+            <Button variant="ghost" onClick={() => setSaveOpen(false)}>Cancel</Button>
+            <Button variant="primary" onClick={handleSave} disabled={!name.trim()}>Save</Button>
           </div>
         </div>
       </Modal>

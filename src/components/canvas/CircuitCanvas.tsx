@@ -87,20 +87,20 @@ export function CircuitCanvas() {
         colorMode="dark"
         style={{ background: 'var(--bg-canvas)' }}
       >
-        {/* PCB crosshatch grid */}
+        {/* Crosshatch grid */}
         <Background
           variant={BackgroundVariant.Cross}
           gap={32}
           size={1}
-          color="#0f1f0f"
+          color="#1a2035"
         />
 
-        {/* Fine subdivision dots at intersections */}
+        {/* Fine dot layer at intersections */}
         <Background
           variant={BackgroundVariant.Dots}
           gap={32}
           size={1}
-          color="#162816"
+          color="#1f2a3e"
           offset={16}
         />
 
@@ -109,10 +109,10 @@ export function CircuitCanvas() {
         <MiniMap
           nodeColor={(node) => {
             const type = node.type ?? ''
-            if (type === 'INPUT')  return '#1a4a1a'
-            if (type === 'OUTPUT') return '#0d2b0d'
-            if (type === 'CUSTOM') return '#3a2800'
-            return '#254525'
+            if (type === 'INPUT')  return '#166534'
+            if (type === 'OUTPUT') return '#14532d'
+            if (type === 'CUSTOM') return '#78350f'
+            return '#2d3748'
           }}
           maskColor="rgba(6,11,6,0.82)"
           style={{

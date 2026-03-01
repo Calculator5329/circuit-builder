@@ -1,9 +1,9 @@
 import type { Signal } from '../types/circuit'
 
 export function signalToColor(signal: Signal): string {
-  if (signal === 1) return '#00ff41'  // phosphor green HIGH
-  if (signal === 0) return '#1a3a1a'  // dim trace LOW
-  return '#ffb300'                     // amber FLOATING
+  if (signal === 1) return '#22c55e'  // green-500 HIGH
+  if (signal === 0) return '#1e293b'  // slate LOW
+  return '#f59e0b'                     // amber FLOATING
 }
 
 export function signalToString(signal: Signal): string {

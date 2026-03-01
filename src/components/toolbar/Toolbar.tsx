@@ -43,57 +43,37 @@ export function Toolbar() {
         height: 44,
         background: 'var(--bg-panel)',
         borderBottom: '1px solid var(--border-mid)',
-        boxShadow: '0 1px 0 var(--border-dim), 0 2px 12px rgba(0,0,0,0.5)',
       }}
     >
       {/* Logo */}
       <div className="flex items-center gap-2 mr-1 shrink-0">
-        <div
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 15,
-            color: 'var(--phosphor-hi)',
-            letterSpacing: '0.04em',
-            lineHeight: 1,
-          }}
-        >
-          <span style={{ color: 'var(--amber)' }}>[</span>
+        <div style={{
+          fontFamily: 'var(--font-display)',
+          fontSize: 14,
+          color: 'var(--text-bright)',
+          letterSpacing: '0.06em',
+          lineHeight: 1,
+        }}>
           CB
-          <span style={{ color: 'var(--amber)' }}>]</span>
         </div>
-        <div
-          style={{
-            width: 1,
-            height: 20,
-            background: 'var(--border-mid)',
-          }}
-        />
+        <div style={{ width: 1, height: 18, background: 'var(--border-mid)' }} />
         <span
           style={{
             fontFamily: 'var(--font-display)',
             fontSize: 10,
             color: 'var(--text-dim)',
-            letterSpacing: '0.12em',
-            textTransform: 'uppercase',
+            letterSpacing: '0.1em',
           }}
           className="hidden sm:block"
         >
-          CIRCUIT·BUILDER
+          Circuit Builder
         </span>
       </div>
 
-      {/* Circuit name — breadcrumb style */}
+      {/* Circuit name */}
       <div className="flex items-center gap-1 min-w-0">
-        <span
-          style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 10,
-            color: 'var(--text-dim)',
-            letterSpacing: '0.06em',
-            flexShrink: 0,
-          }}
-        >
-          ▶
+        <span style={{ fontFamily: 'var(--font-display)', fontSize: 10, color: 'var(--text-dim)', flexShrink: 0 }}>
+          /
         </span>
         {editingName ? (
           <input
@@ -143,28 +123,27 @@ export function Toolbar() {
 
       <div className="flex-1" />
 
-      {/* Node count readout */}
+      {/* Node count */}
       {nodes.length > 0 && (
         <div
           style={{
             fontFamily: 'var(--font-display)',
             fontSize: 9,
             color: 'var(--text-dim)',
-            letterSpacing: '0.1em',
-            textTransform: 'uppercase',
+            letterSpacing: '0.08em',
             borderLeft: '1px solid var(--border-dim)',
             paddingLeft: 10,
           }}
           className="hidden md:block"
         >
-          {nodes.length} NODES
+          {nodes.length} nodes
         </div>
       )}
 
-      {/* Action buttons */}
+      {/* Actions */}
       <div className="flex items-center gap-2">
         <Button variant="secondary" size="sm" onClick={exportToJSON} title="Export to JSON file">
-          EXPORT
+          Export
         </Button>
         <Button
           variant="secondary"
@@ -172,7 +151,7 @@ export function Toolbar() {
           onClick={() => fileInputRef.current?.click()}
           title="Import from JSON file"
         >
-          IMPORT
+          Import
         </Button>
         <input ref={fileInputRef} type="file" accept=".json" className="hidden" onChange={handleImport} />
         <Button
@@ -182,12 +161,11 @@ export function Toolbar() {
           disabled={nodes.length === 0}
           title="Clear canvas"
         >
-          CLR
+          Clear
         </Button>
       </div>
 
-      {/* Confirm clear modal */}
-      <Modal open={clearConfirm} onClose={() => setClearConfirm(false)} title="CLEAR CANVAS?">
+      <Modal open={clearConfirm} onClose={() => setClearConfirm(false)} title="Clear Canvas?">
         <p style={{
           fontFamily: 'var(--font-mono)',
           fontSize: 12,
@@ -199,8 +177,8 @@ export function Toolbar() {
           <span style={{ color: 'var(--danger)', fontSize: 11 }}>This action cannot be undone.</span>
         </p>
         <div className="flex gap-2 justify-end">
-          <Button variant="ghost" onClick={() => setClearConfirm(false)}>CANCEL</Button>
-          <Button variant="danger" onClick={() => { clearCanvas(); setClearConfirm(false) }}>CLR</Button>
+          <Button variant="ghost" onClick={() => setClearConfirm(false)}>Cancel</Button>
+          <Button variant="danger" onClick={() => { clearCanvas(); setClearConfirm(false) }}>Clear</Button>
         </div>
       </Modal>
     </div>

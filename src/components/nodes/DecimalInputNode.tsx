@@ -16,10 +16,8 @@ export function DecimalInputNode({ data, id, selected }: NodeProps) {
 
   const binStr = value.toString(2).padStart(BITS, '0')
 
-  const borderColor = selected ? '#ffb300' : '#254525'
-  const glowColor = selected
-    ? 'rgba(255,179,0,0.4)'
-    : 'rgba(0,255,65,0.04)'
+  const borderColor = selected ? '#f59e0b' : '#2d3748'
+  const glowColor = selected ? 'rgba(245,158,11,0.3)' : 'transparent'
 
   return (
     <div
@@ -27,7 +25,7 @@ export function DecimalInputNode({ data, id, selected }: NodeProps) {
         width: NODE_W,
         height: NODE_H,
         position: 'relative',
-        background: '#070d07',
+        background: '#0d1117',
         borderRadius: 3,
         boxShadow: `inset 0 0 0 1px ${borderColor}, 0 0 14px ${glowColor}`,
         transition: 'box-shadow 0.15s',
@@ -47,7 +45,7 @@ export function DecimalInputNode({ data, id, selected }: NodeProps) {
           <span style={{
             fontFamily: 'var(--font-display)',
             fontSize: 9,
-            color: selected ? '#ffb30099' : 'var(--border-hi)',
+            color: selected ? 'rgba(245,158,11,0.7)' : 'var(--text-dim)',
             letterSpacing: '0.12em',
             textTransform: 'uppercase',
           }}>
@@ -98,7 +96,7 @@ export function DecimalInputNode({ data, id, selected }: NodeProps) {
                 fontFamily: 'var(--font-display)',
                 fontSize: 9,
                 fontWeight: 600,
-                color: b === '1' ? 'var(--border-hi)' : 'var(--border-dim)',
+                color: b === '1' ? '#22c55e' : 'var(--border-dim)',
                 transition: 'color 0.1s',
               }}
             >
@@ -140,7 +138,7 @@ export function DecimalInputNode({ data, id, selected }: NodeProps) {
                 width: 9,
                 height: 9,
                 borderRadius: 2,
-                border: '1px solid #060b06',
+                border: '1px solid #0d1117',
               }}
             />
           </div>

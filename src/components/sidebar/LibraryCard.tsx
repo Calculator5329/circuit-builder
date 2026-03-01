@@ -52,14 +52,14 @@ export function LibraryCard({ circuit }: LibraryCardProps) {
         height: 20,
         borderRadius: 2,
         background: 'var(--bg-canvas)',
-        boxShadow: 'inset 0 0 0 1px #3a2800',
+        boxShadow: 'inset 0 0 0 1px var(--border-mid)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         flexShrink: 0,
         marginTop: 1,
       }}>
-        <span style={{ fontFamily: 'var(--font-display)', fontSize: 7, color: '#7a5500', letterSpacing: '0' }}>IC</span>
+        <span style={{ fontFamily: 'var(--font-display)', fontSize: 7, color: 'var(--text-dim)', letterSpacing: '0' }}>IC</span>
       </div>
 
       <div style={{ flex: 1, minWidth: 0 }}>
@@ -163,7 +163,7 @@ export function LibraryCard({ circuit }: LibraryCardProps) {
               onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
               onClick={() => { setRenaming(true); setMenuOpen(false) }}
             >
-              RENAME
+              Rename
             </button>
             <button
               style={{
@@ -183,7 +183,7 @@ export function LibraryCard({ circuit }: LibraryCardProps) {
               onMouseLeave={e => (e.currentTarget.style.background = 'transparent')}
               onClick={() => { deleteFromLibrary(circuit.id); setMenuOpen(false) }}
             >
-              DELETE
+              Delete
             </button>
           </div>
         )}

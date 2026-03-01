@@ -76,7 +76,7 @@ function handleStyle(signal: Signal) {
     width: 9,
     height: 9,
     borderRadius: 2,
-    border: '1px solid #060b06',
+    border: '1px solid #0d1117',
   }
 }
 
@@ -86,7 +86,7 @@ export function GateNode({ data, selected, type }: NodeProps) {
   if (!config) return null
 
   const Symbol = config.symbol
-  const stroke = selected ? '#ffb300' : '#3a7a3a'
+  const stroke = selected ? '#f59e0b' : '#475569'
 
   return (
     <div
@@ -94,10 +94,10 @@ export function GateNode({ data, selected, type }: NodeProps) {
         width: config.width,
         height: config.height,
         position: 'relative',
-        background: '#070d07',
+        background: '#0d1117',
         boxShadow: selected
-          ? 'inset 0 0 0 1px #ffb300, 0 0 16px rgba(255,179,0,0.45)'
-          : 'inset 0 0 0 1px #254525',
+          ? 'inset 0 0 0 1px #f59e0b, 0 0 14px rgba(245,158,11,0.35)'
+          : 'inset 0 0 0 1px #2d3748',
         borderRadius: 2,
         transition: 'box-shadow 0.15s ease',
       }}
@@ -147,7 +147,7 @@ export function GateNode({ data, selected, type }: NodeProps) {
         <span style={{
           fontFamily: 'var(--font-display)',
           fontSize: 9,
-          color: selected ? '#ffb30099' : '#2a5a2a',
+          color: selected ? 'rgba(245,158,11,0.7)' : '#4a5568',
           letterSpacing: '0.08em',
         }}>
           {type}
