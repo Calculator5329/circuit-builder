@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+/* React Flow dark theme overrides */
+.react-flow__renderer {
+  background-color: #020617;
+}
+
+.react-flow__controls button {
+  background-color: #1e293b;
+  border-color: #334155;
+  color: #94a3b8;
+}
+
+.react-flow__controls button:hover {
+  background-color: #334155;
+  color: #e2e8f0;
+}
+
+.react-flow__minimap {
+  background-color: #0f172a !important;
+  border: 1px solid #1e293b;
+  border-radius: 8px;
+}
+
+/* Handle hover glow */
+.react-flow__handle:hover {
+  transform: scale(1.4);
+  transition: transform 0.1s ease;
+}
+
+/* Scrollbar */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 4px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 2px;
+}
