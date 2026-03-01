@@ -1,0 +1,12 @@
+{
+  "projects": {
+    "default": "master-site-92392"
+  },
+  "targets": {
+    "master-site-92392": {
+      "hosting": {
+        "circuit-builder": ["circuit-builder-d5ea8"]
+      }
+    }
+  }
+}
