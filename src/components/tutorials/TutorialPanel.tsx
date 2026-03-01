@@ -206,38 +206,51 @@ export function TutorialPanel() {
           </>
         )}
 
-        {/* Unlock info */}
+        {/* Unlock celebration */}
         {justPassed && tutorial.unlocksComponent && (
           <div style={{
-            padding: '10px 12px',
-            borderRadius: 4,
-            background: 'rgba(139,92,246,0.06)',
-            border: '1px solid rgba(139,92,246,0.2)',
+            padding: '14px 14px',
+            borderRadius: 5,
+            background: 'linear-gradient(135deg, rgba(139,92,246,0.12) 0%, rgba(99,102,241,0.08) 100%)',
+            border: '1px solid rgba(139,92,246,0.4)',
+            boxShadow: '0 0 20px rgba(139,92,246,0.1)',
             marginBottom: 14,
           }}>
             <div style={{
               fontFamily: 'var(--font-display)',
               fontSize: 10,
-              color: '#8b5cf6',
-              letterSpacing: '0.08em',
-              marginBottom: 4,
+              color: '#a78bfa',
+              letterSpacing: '0.14em',
+              textTransform: 'uppercase' as const,
+              marginBottom: 8,
             }}>
-              COMPONENT UNLOCKED
+              Component Unlocked
             </div>
             <div style={{
               fontFamily: 'var(--font-display)',
-              fontSize: 12,
-              color: 'var(--text-bright)',
+              fontSize: 14,
+              color: '#ddd6fe',
+              letterSpacing: '0.04em',
+              lineHeight: 1.3,
             }}>
               {tutorial.unlocksComponent.name}
             </div>
             <div style={{
               fontFamily: 'var(--font-mono)',
               fontSize: 10,
-              color: 'var(--text-dim)',
-              marginTop: 2,
+              color: 'var(--text-primary)',
+              marginTop: 4,
+              lineHeight: 1.5,
             }}>
               {tutorial.unlocksComponent.description}
+            </div>
+            <div style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: 9,
+              color: 'var(--text-dim)',
+              marginTop: 8,
+            }}>
+              Available in the Library tab for future circuits
             </div>
           </div>
         )}

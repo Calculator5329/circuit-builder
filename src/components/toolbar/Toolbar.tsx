@@ -179,14 +179,38 @@ export function Toolbar() {
           </Button>
         ) : (
           <>
-            <Button
-              variant="secondary"
-              size="sm"
+            <button
               onClick={() => setView('tutorial-hub')}
               title="Open tutorials"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 6,
+                borderRadius: 3,
+                border: 'none',
+                cursor: 'pointer',
+                fontFamily: 'var(--font-display)',
+                letterSpacing: '0.05em',
+                padding: '4px 12px',
+                fontSize: 11,
+                color: '#c4b5fd',
+                background: 'rgba(139,92,246,0.12)',
+                boxShadow: 'inset 0 0 0 1px rgba(139,92,246,0.35)',
+                transition: 'background 0.12s, color 0.12s, box-shadow 0.12s',
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.background = 'rgba(139,92,246,0.22)'
+                e.currentTarget.style.color = '#ddd6fe'
+                e.currentTarget.style.boxShadow = 'inset 0 0 0 1px rgba(139,92,246,0.6)'
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.background = 'rgba(139,92,246,0.12)'
+                e.currentTarget.style.color = '#c4b5fd'
+                e.currentTarget.style.boxShadow = 'inset 0 0 0 1px rgba(139,92,246,0.35)'
+              }}
             >
               Tutorials
-            </Button>
+            </button>
             <Button variant="secondary" size="sm" onClick={exportToJSON} title="Export to JSON file">
               Export
             </Button>

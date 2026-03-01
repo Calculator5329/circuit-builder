@@ -45,10 +45,12 @@ interface TutorialStore {
   _loadProgress: () => void
 }
 
+const initialProgress = loadProgress()
+
 export const useTutorialStore = create<TutorialStore>((set, get) => ({
-  view: 'sandbox',
+  view: initialProgress.completedTutorials.length === 0 ? 'tutorial-hub' : 'sandbox',
   activeTutorial: null,
-  progress: loadProgress(),
+  progress: initialProgress,
   verificationResult: null,
   hintIndex: -1,
 

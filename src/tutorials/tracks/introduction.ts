@@ -25,6 +25,7 @@ export const introductionTutorials: TutorialDefinition[] = [
       'Drag from the small square on the right side of the Input node to the square on the left side of the Output node.',
       'The output should match the input exactly — no gates needed!',
     ],
+    unlocksComponent: { name: 'Buffer', description: 'Pass-through: output mirrors input' },
   },
   {
     id: 'intro-not',
@@ -49,6 +50,7 @@ export const introductionTutorials: TutorialDefinition[] = [
       'Drag a NOT gate from the Gates section in the palette onto the canvas.',
       'Wire: Input → NOT → Output',
     ],
+    unlocksComponent: { name: 'Inverter', description: 'Outputs the opposite of its input' },
   },
   {
     id: 'intro-and',
@@ -78,5 +80,6 @@ export const introductionTutorials: TutorialDefinition[] = [
       'Drag an AND gate onto the canvas between the inputs and output.',
       'Connect A to the top input of the AND gate, B to the bottom input, and the AND output to Y.',
     ],
+    unlocksComponent: { name: 'AND Gate', description: 'Outputs 1 only when both inputs are 1' },
   },
 ]
