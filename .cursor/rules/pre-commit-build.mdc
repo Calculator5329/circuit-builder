@@ -1,0 +1,12 @@
+# Pre-Commit Build Check
+
+Before EVERY `git commit`, you MUST run the full production build command:
+
+```
+tsc -b && npx vite build
+```
+
+- If either step fails, **do NOT commit**. Fix the errors first.
+- `tsc -b` catches type errors, unused variables, and import issues that `tsc --noEmit` misses.
+- `npx vite build` catches bundler-level issues (missing exports, circular deps, etc.).
+- This is the same command CI runs — catching failures locally saves a broken deploy.

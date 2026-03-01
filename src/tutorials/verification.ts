@@ -8,10 +8,7 @@ export function verifyCircuit(
   edges: WireEdge[],
   savedCircuits: SavedCircuit[],
 ): VerificationResult {
-  const inputNodes = nodes.filter(n => n.data.gateType === 'INPUT')
   const outputNodes = nodes.filter(n => n.data.gateType === 'OUTPUT')
-
-  const inputsByLabel = new Map(inputNodes.map(n => [n.data.label, n]))
   const outputsByLabel = new Map(outputNodes.map(n => [n.data.label, n]))
 
   const rowResults = tutorial.truthTable.map(row => {
