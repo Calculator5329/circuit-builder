@@ -9,34 +9,48 @@ import type { TutorialTrack } from '../../types/tutorial'
 function WelcomeHero({ onStart, onSandbox }: { onStart: () => void; onSandbox: () => void }) {
   return (
     <div style={{
+      position: 'relative',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
       textAlign: 'center',
-      padding: '64px 24px 48px',
-      maxWidth: 540,
-      margin: '0 auto',
+      padding: '80px 24px 56px',
     }}>
+      {/* Radial glow */}
+      <div style={{
+        position: 'absolute',
+        top: '40%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 700,
+        height: 500,
+        background: 'radial-gradient(ellipse at center, rgba(139,92,246,0.07) 0%, transparent 70%)',
+        pointerEvents: 'none',
+      }} />
+
       <div style={{
         fontFamily: 'var(--font-display)',
         fontSize: 11,
-        letterSpacing: '0.18em',
+        letterSpacing: '0.24em',
         color: '#8b5cf6',
-        marginBottom: 16,
+        marginBottom: 20,
         textTransform: 'uppercase' as const,
+        position: 'relative',
       }}>
         Digital Logic Simulator
       </div>
 
       <h1 style={{
         fontFamily: 'var(--font-display)',
-        fontSize: 32,
+        fontSize: 48,
         fontWeight: 400,
-        color: 'var(--text-bright)',
-        letterSpacing: '0.04em',
-        lineHeight: 1.2,
-        margin: '0 0 16px',
+        color: '#e2e8f0',
+        letterSpacing: '0.06em',
+        lineHeight: 1.1,
+        margin: '0 0 20px',
+        textShadow: '0 0 60px rgba(139,92,246,0.15)',
+        position: 'relative',
       }}>
         Circuit Builder
       </h1>
@@ -45,15 +59,17 @@ function WelcomeHero({ onStart, onSandbox }: { onStart: () => void; onSandbox: (
         fontFamily: 'var(--font-mono)',
         fontSize: 13,
         color: 'var(--text-primary)',
-        lineHeight: 1.7,
-        margin: '0 0 36px',
-        maxWidth: 440,
+        lineHeight: 1.8,
+        margin: '0 0 44px',
+        maxWidth: 460,
+        position: 'relative',
       }}>
-        Build real digital circuits from logic gates. Complete challenges to unlock
-        reusable components, then combine them into increasingly complex machines.
+        Build real digital circuits from logic gates. Complete challenges
+        to unlock reusable components, then combine them into
+        increasingly complex machines.
       </p>
 
-      <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+      <div style={{ display: 'flex', gap: 14, alignItems: 'center', position: 'relative' }}>
         <button
           onClick={onStart}
           style={{
@@ -61,20 +77,21 @@ function WelcomeHero({ onStart, onSandbox }: { onStart: () => void; onSandbox: (
             fontSize: 14,
             letterSpacing: '0.06em',
             color: '#fff',
-            background: '#8b5cf6',
+            background: 'linear-gradient(135deg, #8b5cf6, #7c3aed)',
             border: 'none',
-            borderRadius: 4,
-            padding: '12px 32px',
+            borderRadius: 8,
+            padding: '14px 36px',
             cursor: 'pointer',
-            transition: 'background 0.15s, transform 0.1s',
+            transition: 'all 0.2s ease',
+            boxShadow: '0 4px 24px rgba(139,92,246,0.3)',
           }}
           onMouseEnter={e => {
-            e.currentTarget.style.background = '#7c3aed'
-            e.currentTarget.style.transform = 'translateY(-1px)'
+            e.currentTarget.style.transform = 'translateY(-2px)'
+            e.currentTarget.style.boxShadow = '0 8px 32px rgba(139,92,246,0.45)'
           }}
           onMouseLeave={e => {
-            e.currentTarget.style.background = '#8b5cf6'
             e.currentTarget.style.transform = 'translateY(0)'
+            e.currentTarget.style.boxShadow = '0 4px 24px rgba(139,92,246,0.3)'
           }}
         >
           Start First Challenge
@@ -87,17 +104,48 @@ function WelcomeHero({ onStart, onSandbox }: { onStart: () => void; onSandbox: (
             letterSpacing: '0.05em',
             color: 'var(--text-dim)',
             background: 'transparent',
-            border: 'none',
+            border: '1px solid var(--border-mid)',
+            borderRadius: 8,
             cursor: 'pointer',
-            padding: '8px 12px',
-            transition: 'color 0.12s',
+            padding: '13px 22px',
+            transition: 'all 0.15s ease',
           }}
-          onMouseEnter={e => { e.currentTarget.style.color = 'var(--text-primary)' }}
-          onMouseLeave={e => { e.currentTarget.style.color = 'var(--text-dim)' }}
+          onMouseEnter={e => {
+            e.currentTarget.style.color = 'var(--text-primary)'
+            e.currentTarget.style.borderColor = 'var(--border-hi)'
+          }}
+          onMouseLeave={e => {
+            e.currentTarget.style.color = 'var(--text-dim)'
+            e.currentTarget.style.borderColor = 'var(--border-mid)'
+          }}
         >
           Skip to Sandbox
         </button>
       </div>
+    </div>
+  )
+}
+
+function SectionDivider({ label }: { label: string }) {
+  return (
+    <div style={{
+      display: 'flex',
+      alignItems: 'center',
+      gap: 16,
+      marginBottom: 24,
+    }}>
+      <div style={{ height: 1, flex: 1, background: 'var(--border-dim)' }} />
+      <div style={{
+        fontFamily: 'var(--font-display)',
+        fontSize: 10,
+        letterSpacing: '0.2em',
+        color: 'var(--text-dim)',
+        textTransform: 'uppercase' as const,
+        whiteSpace: 'nowrap' as const,
+      }}>
+        {label}
+      </div>
+      <div style={{ height: 1, flex: 1, background: 'var(--border-dim)' }} />
     </div>
   )
 }
@@ -121,7 +169,6 @@ export function TutorialHub() {
         flexDirection: 'column',
         background: 'var(--bg-canvas)',
       }}>
-        {/* Header */}
         <div style={{
           display: 'flex',
           alignItems: 'center',
@@ -151,7 +198,6 @@ export function TutorialHub() {
           </div>
         </div>
 
-        {/* Tutorial list */}
         <div className="flex-1 overflow-y-auto scrollbar-thin" style={{ padding: 20 }}>
           <div style={{
             fontFamily: 'var(--font-mono)',
@@ -185,7 +231,7 @@ export function TutorialHub() {
       flexDirection: 'column',
       background: 'var(--bg-canvas)',
     }}>
-      {/* Header */}
+      {/* Header bar */}
       <div style={{
         display: 'flex',
         alignItems: 'center',
@@ -215,7 +261,7 @@ export function TutorialHub() {
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto scrollbar-thin" style={{ padding: '0 20px 20px' }}>
+      <div className="flex-1 overflow-y-auto scrollbar-thin">
         {isNewUser ? (
           <WelcomeHero
             onStart={() => startTutorial('intro-wire')}
@@ -223,30 +269,44 @@ export function TutorialHub() {
           />
         ) : (
           <div style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: 11,
-            color: 'var(--text-dim)',
-            lineHeight: 1.6,
-            padding: '20px 0',
-            maxWidth: 560,
+            textAlign: 'center',
+            padding: '40px 24px 8px',
           }}>
-            Build circuits from basic gates. Complete tutorials to unlock reusable components for harder challenges.
+            <div style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: 12,
+              color: 'var(--text-dim)',
+              lineHeight: 1.7,
+              maxWidth: 480,
+              margin: '0 auto',
+            }}>
+              Build circuits from basic gates. Complete tutorials to unlock
+              reusable components for harder challenges.
+            </div>
           </div>
         )}
 
+        {/* Tracks section */}
         <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
-          gap: 10,
-          maxWidth: 700,
+          maxWidth: 920,
+          margin: '0 auto',
+          padding: '0 28px 48px',
         }}>
-          {TRACKS.map(track => (
-            <TrackCard
-              key={track.id}
-              track={track}
-              onSelect={() => setSelectedTrack(track)}
-            />
-          ))}
+          <SectionDivider label={`${TRACKS.length} tracks · ${totalTutorials} challenges`} />
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))',
+            gap: 10,
+          }}>
+            {TRACKS.map(track => (
+              <TrackCard
+                key={track.id}
+                track={track}
+                onSelect={() => setSelectedTrack(track)}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>
