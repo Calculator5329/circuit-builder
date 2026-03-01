@@ -58,11 +58,12 @@ export function VerificationFeedback({ result }: VerificationFeedbackProps) {
       <div style={{
         borderRadius: 4,
         border: '1px solid var(--border-dim)',
-        overflow: 'hidden',
+        overflowX: 'auto',
+        overflowY: 'hidden',
         fontSize: 10,
         fontFamily: 'var(--font-mono)',
       }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+        <table style={{ width: 'max-content', minWidth: '100%', borderCollapse: 'collapse' }}>
           <thead>
             <tr style={{ background: 'var(--bg-panel)' }}>
               <th style={thStyle}>#</th>
@@ -120,18 +121,20 @@ export function VerificationFeedback({ result }: VerificationFeedbackProps) {
 }
 
 const thStyle: React.CSSProperties = {
-  padding: '5px 6px',
+  padding: '5px 5px',
   textAlign: 'center',
   color: 'var(--text-dim)',
   fontWeight: 600,
   fontSize: 9,
-  letterSpacing: '0.06em',
+  letterSpacing: '0.04em',
   borderBottom: '1px solid var(--border-dim)',
+  whiteSpace: 'nowrap',
 }
 
 const tdStyle: React.CSSProperties = {
-  padding: '4px 6px',
+  padding: '4px 5px',
   textAlign: 'center',
   color: 'var(--text-primary)',
   borderBottom: '1px solid var(--border-dim)',
+  whiteSpace: 'nowrap',
 }
