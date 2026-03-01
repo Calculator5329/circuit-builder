@@ -148,7 +148,7 @@ export const useCircuitStore = create<CircuitStore>((set, get) => ({
   toggleInput: (nodeId) => {
     set(state => ({
       nodes: state.nodes.map(n => {
-        if (n.id !== nodeId || n.data.gateType !== 'INPUT') return n
+        if (n.id !== nodeId || (n.data.gateType !== 'INPUT' && n.data.gateType !== 'CONSTANT')) return n
         return { ...n, data: { ...n.data, inputState: !n.data.inputState } }
       }),
       isDirty: true,

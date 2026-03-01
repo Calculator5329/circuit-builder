@@ -36,8 +36,14 @@ export function evaluateGate(gateType: GateType, inputs: Inputs): Outputs {
       return { out0: (a ^ 1) as Signal }
     }
 
+    case 'CONSTANT': {
+      return { out0: inputs['__state__'] ?? null }
+    }
+
+    case 'SEVEN_SEGMENT_DISPLAY':
+      return {}
+
     case 'CUSTOM':
-      // CUSTOM evaluation is handled by the engine via recursion
       return {}
 
     default:

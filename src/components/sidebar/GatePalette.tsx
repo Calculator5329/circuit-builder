@@ -6,6 +6,8 @@ const IO_GATES: Array<{ gateType: GateType; label: string; description: string }
   { gateType: 'OUTPUT',         label: 'Output',     description: 'LED signal indicator' },
   { gateType: 'DECIMAL_INPUT',  label: 'Dec Input',  description: 'Decimal → 8-bit output' },
   { gateType: 'DECIMAL_OUTPUT', label: 'Dec Output', description: '8-bit input → decimal' },
+  { gateType: 'CONSTANT',       label: 'Constant',   description: 'Always 0 or 1 (click to toggle)' },
+  { gateType: 'SEVEN_SEGMENT_DISPLAY', label: '7-Seg Display', description: '7-segment display (a–g inputs)' },
 ]
 
 const LOGIC_GATES: Array<{ gateType: GateType; label: string; description: string }> = [

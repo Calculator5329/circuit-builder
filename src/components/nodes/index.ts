@@ -4,6 +4,8 @@ import { InputNode } from './InputNode'
 import { OutputNode } from './OutputNode'
 import { DecimalInputNode } from './DecimalInputNode'
 import { DecimalOutputNode } from './DecimalOutputNode'
+import { ConstantNode } from './ConstantNode'
+import { SevenSegmentDisplayNode } from './SevenSegmentDisplayNode'
 import { CustomGateNode } from './CustomGateNode'
 
 export const nodeTypes: NodeTypes = {
@@ -18,5 +20,7 @@ export const nodeTypes: NodeTypes = {
   OUTPUT: OutputNode,
   DECIMAL_INPUT: DecimalInputNode,
   DECIMAL_OUTPUT: DecimalOutputNode,
+  CONSTANT: ConstantNode,
+  SEVEN_SEGMENT_DISPLAY: SevenSegmentDisplayNode,
   CUSTOM: CustomGateNode,
 }

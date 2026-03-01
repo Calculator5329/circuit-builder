@@ -7,12 +7,14 @@ import {
   BackgroundVariant,
   type EdgeTypes,
   type Viewport,
+  type NodeChange,
 } from '@xyflow/react'
 import '@xyflow/react/dist/style.css'
 import { useCircuitStore } from '../../store/circuitStore'
+import { useTutorialStore } from '../../store/tutorialStore'
 import { nodeTypes } from '../nodes'
 import { WireEdge } from '../edges/WireEdge'
-import type { GateType } from '../../types/circuit'
+import type { GateType, GateNode as GateNodeType } from '../../types/circuit'
 
 const edgeTypes: EdgeTypes = {
   wire: WireEdge,
@@ -31,9 +33,29 @@ export function CircuitCanvas() {
     savedCircuits,
   } = useCircuitStore()
 
+  const activeTutorial = useTutorialStore(s => s.activeTutorial)
+  const isTutorialActive = activeTutorial !== null
+
   const reactFlowWrapper = useRef<HTMLDivElement>(null)
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const rfInstanceRef = useRef<any>(null)
+
+  const handleNodesChange = useCallback((changes: NodeChange<GateNodeType>[]) => {
+    if (!isTutorialActive) {
+      onNodesChange(changes)
+      return
+    }
+    const filtered = changes.filter(change => {
+      if (change.type === 'remove') {
+        const node = nodes.find(n => n.id === change.id)
+        if (node && (node.data.gateType === 'INPUT' || node.data.gateType === 'OUTPUT')) {
+          return false
+        }
+      }
+      return true
+    })
+    if (filtered.length > 0) onNodesChange(filtered)
+  }, [isTutorialActive, onNodesChange, nodes])
 
   const onDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault()
@@ -52,6 +74,10 @@ export function CircuitCanvas() {
       savedCircuitId?: string
     }
 
+    if (isTutorialActive && (gateType === 'INPUT' || gateType === 'OUTPUT')) {
+      return
+    }
+
     const bounds = reactFlowWrapper.current.getBoundingClientRect()
     const position = rfInstanceRef.current.screenToFlowPosition({
       x: e.clientX - bounds.left,
@@ -64,7 +90,7 @@ export function CircuitCanvas() {
     } else {
       addGate(gateType as GateType, position)
     }
-  }, [addGate, addCustomGate, savedCircuits])
+  }, [addGate, addCustomGate, savedCircuits, isTutorialActive])
 
   return (
     <div ref={reactFlowWrapper} className="w-full h-full">
@@ -74,7 +100,7 @@ export function CircuitCanvas() {
         nodeTypes={nodeTypes}
         edgeTypes={edgeTypes}
         defaultEdgeOptions={defaultEdgeOptions}
-        onNodesChange={onNodesChange}
+        onNodesChange={handleNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
         onInit={(instance) => { rfInstanceRef.current = instance }}

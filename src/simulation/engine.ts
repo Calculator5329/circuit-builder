@@ -29,7 +29,7 @@ export function runSimulation(
 
   // Set INPUT and DECIMAL_INPUT node outputs from their state
   for (const node of nodes) {
-    if (node.data.gateType === 'INPUT') {
+    if (node.data.gateType === 'INPUT' || node.data.gateType === 'CONSTANT') {
       const sig: Signal = node.data.inputState ? 1 : 0
       nodeOutputs.set(node.id, { out0: sig })
     }
@@ -45,8 +45,8 @@ export function runSimulation(
 
   // Evaluate in topological order
   for (const node of order) {
-    if (node.data.gateType === 'INPUT') continue // already set above
-    if (node.data.gateType === 'DECIMAL_INPUT') continue // already set above
+    if (node.data.gateType === 'INPUT' || node.data.gateType === 'CONSTANT') continue
+    if (node.data.gateType === 'DECIMAL_INPUT') continue
 
     // Collect input signals by looking up what drives each input handle
     const resolvedInputs: Record<string, Signal> = {}

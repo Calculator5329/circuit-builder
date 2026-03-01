@@ -25,7 +25,7 @@ export function createGateNode(
     label: label ?? defaultLabel(gateType, savedCircuit),
     inputSignals: Object.fromEntries(inputPortIds.map(id => [id, null])),
     outputSignals: Object.fromEntries(outputPortIds.map(id => [id, null])),
-    inputState: gateType === 'INPUT' ? false : undefined,
+    inputState: (gateType === 'INPUT' || gateType === 'CONSTANT') ? false : undefined,
     decimalValue: gateType === 'DECIMAL_INPUT' ? 0 : undefined,
     customCircuitId: savedCircuit?.id,
   }
@@ -45,6 +45,7 @@ function defaultLabel(gateType: GateType, savedCircuit?: SavedCircuit): string {
     NAND: 'NAND', NOR: 'NOR', XOR: 'XOR', XNOR: 'XNOR',
     INPUT: 'In', OUTPUT: 'Out',
     DECIMAL_INPUT: 'Dec In', DECIMAL_OUTPUT: 'Dec Out',
+    CONSTANT: '0', SEVEN_SEGMENT_DISPLAY: '7-Seg',
     CUSTOM: 'Custom',
   }
   return labels[gateType]

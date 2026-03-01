@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react'
 import { useCircuitStore } from '../../store/circuitStore'
+import { useTutorialStore } from '../../store/tutorialStore'
 import { Button } from '../ui/Button'
 import { Modal } from '../ui/Modal'
 
@@ -9,6 +10,11 @@ export function Toolbar() {
     clearCanvas, nodes,
     exportToJSON, importFromJSON: importJSON,
   } = useCircuitStore()
+  const view = useTutorialStore(s => s.view)
+  const activeTutorial = useTutorialStore(s => s.activeTutorial)
+  const setView = useTutorialStore(s => s.setView)
+  const exitTutorial = useTutorialStore(s => s.exitTutorial)
+  const isTutorialActive = view === 'tutorial-active'
 
   const [editingName, setEditingName] = useState(false)
   const [nameVal, setNameVal] = useState(circuitName)
@@ -70,56 +76,81 @@ export function Toolbar() {
         </span>
       </div>
 
-      {/* Circuit name */}
-      <div className="flex items-center gap-1 min-w-0">
-        <span style={{ fontFamily: 'var(--font-display)', fontSize: 10, color: 'var(--text-dim)', flexShrink: 0 }}>
-          /
-        </span>
-        {editingName ? (
-          <input
-            autoFocus
-            value={nameVal}
-            onChange={e => setNameVal(e.target.value)}
-            onBlur={commitName}
-            onKeyDown={e => {
-              if (e.key === 'Enter') commitName()
-              if (e.key === 'Escape') { setNameVal(circuitName); setEditingName(false) }
-            }}
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: 12,
-              color: 'var(--text-bright)',
-              background: 'var(--bg-surface)',
-              border: '1px solid var(--border-hi)',
-              borderRadius: 2,
-              padding: '2px 8px',
-              outline: 'none',
-              width: 176,
-              letterSpacing: '0.04em',
-            }}
-          />
-        ) : (
-          <button
-            onClick={() => { setNameVal(circuitName); setEditingName(true) }}
-            style={{
-              fontFamily: 'var(--font-display)',
-              fontSize: 12,
-              color: 'var(--text-primary)',
-              background: 'transparent',
-              border: 'none',
-              borderRadius: 2,
-              padding: '2px 6px',
-              cursor: 'text',
-              letterSpacing: '0.04em',
-              transition: 'color 0.12s',
-            }}
-            onMouseEnter={e => (e.currentTarget.style.color = 'var(--text-bright)')}
-            onMouseLeave={e => (e.currentTarget.style.color = 'var(--text-primary)')}
-          >
-            {circuitName}
-          </button>
-        )}
-      </div>
+      {/* Tutorial indicator */}
+      {isTutorialActive && activeTutorial && (
+        <>
+          <div style={{ width: 1, height: 18, background: 'var(--border-mid)' }} />
+          <span style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: 10,
+            color: '#8b5cf6',
+            letterSpacing: '0.06em',
+          }}>
+            TUTORIAL
+          </span>
+          <span style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: 11,
+            color: 'var(--text-bright)',
+            letterSpacing: '0.04em',
+          }}>
+            {activeTutorial.name}
+          </span>
+        </>
+      )}
+
+      {/* Circuit name (sandbox mode only) */}
+      {!isTutorialActive && (
+        <div className="flex items-center gap-1 min-w-0">
+          <span style={{ fontFamily: 'var(--font-display)', fontSize: 10, color: 'var(--text-dim)', flexShrink: 0 }}>
+            /
+          </span>
+          {editingName ? (
+            <input
+              autoFocus
+              value={nameVal}
+              onChange={e => setNameVal(e.target.value)}
+              onBlur={commitName}
+              onKeyDown={e => {
+                if (e.key === 'Enter') commitName()
+                if (e.key === 'Escape') { setNameVal(circuitName); setEditingName(false) }
+              }}
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: 12,
+                color: 'var(--text-bright)',
+                background: 'var(--bg-surface)',
+                border: '1px solid var(--border-hi)',
+                borderRadius: 2,
+                padding: '2px 8px',
+                outline: 'none',
+                width: 176,
+                letterSpacing: '0.04em',
+              }}
+            />
+          ) : (
+            <button
+              onClick={() => { setNameVal(circuitName); setEditingName(true) }}
+              style={{
+                fontFamily: 'var(--font-display)',
+                fontSize: 12,
+                color: 'var(--text-primary)',
+                background: 'transparent',
+                border: 'none',
+                borderRadius: 2,
+                padding: '2px 6px',
+                cursor: 'text',
+                letterSpacing: '0.04em',
+                transition: 'color 0.12s',
+              }}
+              onMouseEnter={e => (e.currentTarget.style.color = 'var(--text-bright)')}
+              onMouseLeave={e => (e.currentTarget.style.color = 'var(--text-primary)')}
+            >
+              {circuitName}
+            </button>
+          )}
+        </div>
+      )}
 
       <div className="flex-1" />
 
@@ -142,27 +173,43 @@ export function Toolbar() {
 
       {/* Actions */}
       <div className="flex items-center gap-2">
-        <Button variant="secondary" size="sm" onClick={exportToJSON} title="Export to JSON file">
-          Export
-        </Button>
-        <Button
-          variant="secondary"
-          size="sm"
-          onClick={() => fileInputRef.current?.click()}
-          title="Import from JSON file"
-        >
-          Import
-        </Button>
-        <input ref={fileInputRef} type="file" accept=".json" className="hidden" onChange={handleImport} />
-        <Button
-          variant="danger"
-          size="sm"
-          onClick={() => setClearConfirm(true)}
-          disabled={nodes.length === 0}
-          title="Clear canvas"
-        >
-          Clear
-        </Button>
+        {isTutorialActive ? (
+          <Button variant="ghost" size="sm" onClick={exitTutorial}>
+            Exit Tutorial
+          </Button>
+        ) : (
+          <>
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={() => setView('tutorial-hub')}
+              title="Open tutorials"
+            >
+              Tutorials
+            </Button>
+            <Button variant="secondary" size="sm" onClick={exportToJSON} title="Export to JSON file">
+              Export
+            </Button>
+            <Button
+              variant="secondary"
+              size="sm"
+              onClick={() => fileInputRef.current?.click()}
+              title="Import from JSON file"
+            >
+              Import
+            </Button>
+            <input ref={fileInputRef} type="file" accept=".json" className="hidden" onChange={handleImport} />
+            <Button
+              variant="danger"
+              size="sm"
+              onClick={() => setClearConfirm(true)}
+              disabled={nodes.length === 0}
+              title="Clear canvas"
+            >
+              Clear
+            </Button>
+          </>
+        )}
       </div>
 
       <Modal open={clearConfirm} onClose={() => setClearConfirm(false)} title="Clear Canvas?">

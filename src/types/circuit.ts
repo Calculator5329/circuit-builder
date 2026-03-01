@@ -14,6 +14,8 @@ export type GateType =
   | 'OUTPUT'
   | 'DECIMAL_INPUT'
   | 'DECIMAL_OUTPUT'
+  | 'CONSTANT'
+  | 'SEVEN_SEGMENT_DISPLAY'
   | 'CUSTOM'
 
 export interface PortDefinition {

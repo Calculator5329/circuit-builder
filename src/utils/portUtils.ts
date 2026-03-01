@@ -33,6 +33,12 @@ export function getPortDefinitions(
       return Array.from({ length: 8 }, (_, i) => ({
         id: `bit${i}`, type: 'input' as const, label: `bit${i}`, index: i,
       }))
+    case 'CONSTANT':
+      return [{ id: 'out0', type: 'output', index: 0 }]
+    case 'SEVEN_SEGMENT_DISPLAY':
+      return ['a', 'b', 'c', 'd', 'e', 'f', 'g'].map((seg, i) => ({
+        id: seg, type: 'input' as const, label: seg, index: i,
+      }))
     case 'CUSTOM':
       if (!savedCircuit) return []
       return [
