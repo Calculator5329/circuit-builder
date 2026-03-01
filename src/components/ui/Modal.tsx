@@ -19,23 +19,87 @@ export function Modal({ open, onClose, title, children }: ModalProps) {
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
+      style={{
+        position: 'fixed',
+        inset: 0,
+        zIndex: 50,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: 'rgba(0,0,0,0.78)',
+        backdropFilter: 'blur(3px)',
+      }}
       onPointerDown={onClose}
     >
+      {/* Panel */}
       <div
-        className="bg-slate-800 border border-slate-600 rounded-xl shadow-2xl w-full max-w-md mx-4 p-6"
+        style={{
+          background: 'var(--bg-panel)',
+          border: '1px solid var(--border-mid)',
+          borderRadius: 3,
+          boxShadow: '0 0 0 1px var(--border-dim), 0 24px 60px rgba(0,0,0,0.7), 0 0 40px rgba(0,255,65,0.03)',
+          width: '100%',
+          maxWidth: 440,
+          margin: '0 16px',
+          overflow: 'hidden',
+        }}
         onPointerDown={e => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-white font-semibold text-lg">{title}</h2>
+        {/* Title bar */}
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '10px 16px',
+            borderBottom: '1px solid var(--border-dim)',
+            background: 'var(--bg-surface)',
+          }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <span style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: 9,
+              color: 'var(--border-hi)',
+              letterSpacing: '0.06em',
+            }}>
+              ▶_
+            </span>
+            <h2 style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: 12,
+              color: 'var(--text-bright)',
+              letterSpacing: '0.1em',
+              margin: 0,
+            }}>
+              {title}
+            </h2>
+          </div>
           <button
             onClick={onClose}
-            className="text-slate-400 hover:text-white transition-colors text-xl leading-none"
+            style={{
+              background: 'transparent',
+              border: 'none',
+              cursor: 'pointer',
+              fontFamily: 'var(--font-display)',
+              fontSize: 14,
+              color: 'var(--text-dim)',
+              lineHeight: 1,
+              padding: '2px 4px',
+              borderRadius: 2,
+              transition: 'color 0.12s',
+            }}
+            onMouseEnter={e => (e.currentTarget.style.color = 'var(--danger)')}
+            onMouseLeave={e => (e.currentTarget.style.color = 'var(--text-dim)')}
           >
-            ×
+            ✕
           </button>
         </div>
-        {children}
+
+        {/* Content */}
+        <div style={{ padding: '20px 16px 16px' }}>
+          {children}
+        </div>
       </div>
     </div>
   )

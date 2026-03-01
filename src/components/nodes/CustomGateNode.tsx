@@ -11,8 +11,17 @@ export function CustomGateNode({ data, selected }: NodeProps) {
 
   if (!savedCircuit) {
     return (
-      <div className="bg-red-900/50 border border-red-500 rounded px-3 py-2 text-xs text-red-300">
-        Missing: {gateData.label}
+      <div style={{
+        background: '#1a0808',
+        boxShadow: 'inset 0 0 0 1px var(--danger)',
+        borderRadius: 3,
+        padding: '6px 10px',
+        fontFamily: 'var(--font-display)',
+        fontSize: 10,
+        color: 'var(--danger)',
+        letterSpacing: '0.06em',
+      }}>
+        MISSING: {gateData.label}
       </div>
     )
   }
@@ -20,19 +29,51 @@ export function CustomGateNode({ data, selected }: NodeProps) {
   const inputCount = savedCircuit.inputPorts.length
   const outputCount = savedCircuit.outputPorts.length
   const rows = Math.max(inputCount, outputCount, 1)
-  const height = rows * 28 + 32
+  const height = rows * 28 + 44
+  const borderColor = selected ? '#ffb300' : '#3a2800'
+  const glowColor = selected ? 'rgba(255,179,0,0.4)' : 'rgba(255,179,0,0.02)'
 
   return (
     <div
-      className={`
-        relative bg-slate-800 rounded-lg px-3 py-2 min-w-[120px]
-        border-2 transition-all
-        ${selected ? 'border-blue-400 shadow-[0_0_10px_rgba(96,165,250,0.4)]' : 'border-violet-600'}
-      `}
-      style={{ height }}
+      style={{
+        position: 'relative',
+        minWidth: 124,
+        height,
+        background: '#070d07',
+        borderRadius: 3,
+        boxShadow: `inset 0 0 0 1px ${borderColor}, 0 0 12px ${glowColor}`,
+        transition: 'box-shadow 0.15s',
+        padding: '6px 8px 4px',
+      }}
     >
-      <div className="text-center text-xs text-violet-300 font-bold mb-1 truncate max-w-[120px]">
-        {savedCircuit.name}
+      {/* IC chip header */}
+      <div style={{
+        borderBottom: '1px solid var(--border-dim)',
+        paddingBottom: 4,
+        marginBottom: 2,
+        textAlign: 'center',
+      }}>
+        <div style={{
+          fontFamily: 'var(--font-display)',
+          fontSize: 8,
+          color: 'var(--text-dim)',
+          letterSpacing: '0.1em',
+          marginBottom: 2,
+        }}>
+          IC
+        </div>
+        <div style={{
+          fontFamily: 'var(--font-display)',
+          fontSize: 10,
+          color: selected ? '#ffb300' : '#7a5500',
+          letterSpacing: '0.06em',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          whiteSpace: 'nowrap',
+          maxWidth: 108,
+        }}>
+          {savedCircuit.name}
+        </div>
       </div>
 
       {savedCircuit.inputPorts.map((port, i) => {
@@ -46,14 +87,22 @@ export function CustomGateNode({ data, selected }: NodeProps) {
               style={{
                 top: `${topPct}%`,
                 background: signalToColor(gateData.inputSignals[port.id] ?? null),
-                width: 10, height: 10,
-                border: '2px solid #0f172a',
+                width: 9,
+                height: 9,
+                borderRadius: 2,
+                border: '1px solid #060b06',
               }}
             />
-            <span
-              className="absolute text-[9px] text-slate-400 pointer-events-none"
-              style={{ top: `calc(${topPct}% - 6px)`, left: 10 }}
-            >
+            <span style={{
+              position: 'absolute',
+              fontFamily: 'var(--font-display)',
+              fontSize: 8,
+              color: 'var(--text-dim)',
+              pointerEvents: 'none',
+              letterSpacing: '0.04em',
+              top: `calc(${topPct}% - 6px)`,
+              left: 10,
+            }}>
               {port.label}
             </span>
           </div>
@@ -71,14 +120,23 @@ export function CustomGateNode({ data, selected }: NodeProps) {
               style={{
                 top: `${topPct}%`,
                 background: signalToColor(gateData.outputSignals[port.id] ?? null),
-                width: 10, height: 10,
-                border: '2px solid #0f172a',
+                width: 9,
+                height: 9,
+                borderRadius: 2,
+                border: '1px solid #060b06',
               }}
             />
-            <span
-              className="absolute text-[9px] text-slate-400 pointer-events-none text-right"
-              style={{ top: `calc(${topPct}% - 6px)`, right: 10 }}
-            >
+            <span style={{
+              position: 'absolute',
+              fontFamily: 'var(--font-display)',
+              fontSize: 8,
+              color: 'var(--text-dim)',
+              pointerEvents: 'none',
+              letterSpacing: '0.04em',
+              textAlign: 'right',
+              top: `calc(${topPct}% - 6px)`,
+              right: 10,
+            }}>
               {port.label}
             </span>
           </div>

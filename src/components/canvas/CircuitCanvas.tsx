@@ -85,19 +85,41 @@ export function CircuitCanvas() {
         deleteKeyCode={null}
         multiSelectionKeyCode="Shift"
         colorMode="dark"
-        className="bg-slate-950"
+        style={{ background: 'var(--bg-canvas)' }}
       >
+        {/* PCB crosshatch grid */}
+        <Background
+          variant={BackgroundVariant.Cross}
+          gap={32}
+          size={1}
+          color="#0f1f0f"
+        />
+
+        {/* Fine subdivision dots at intersections */}
         <Background
           variant={BackgroundVariant.Dots}
-          gap={20}
+          gap={32}
           size={1}
-          color="#1e293b"
+          color="#162816"
+          offset={16}
         />
-        <Controls />
+
+        <Controls showInteractive={false} />
+
         <MiniMap
-          nodeColor="#334155"
-          maskColor="rgba(2,6,23,0.7)"
-          className="rounded-lg overflow-hidden"
+          nodeColor={(node) => {
+            const type = node.type ?? ''
+            if (type === 'INPUT')  return '#1a4a1a'
+            if (type === 'OUTPUT') return '#0d2b0d'
+            if (type === 'CUSTOM') return '#3a2800'
+            return '#254525'
+          }}
+          maskColor="rgba(6,11,6,0.82)"
+          style={{
+            background: 'var(--bg-panel)',
+            border: '1px solid var(--border-mid)',
+            borderRadius: 3,
+          }}
         />
       </ReactFlow>
     </div>

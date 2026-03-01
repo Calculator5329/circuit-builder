@@ -8,24 +8,50 @@ export function Sidebar() {
   const [tab, setTab] = useState<Tab>('gates')
 
   return (
-    <div className="flex flex-col h-full bg-slate-900 border-r border-slate-800 w-64 shrink-0">
+    <div
+      className="flex flex-col h-full shrink-0"
+      style={{
+        width: 240,
+        background: 'var(--bg-panel)',
+        borderRight: '1px solid var(--border-mid)',
+      }}
+    >
       {/* Tab bar */}
-      <div className="flex border-b border-slate-800">
-        {(['gates', 'library'] as Tab[]).map(t => (
-          <button
-            key={t}
-            onClick={() => setTab(t)}
-            className={`
-              flex-1 py-2.5 text-xs font-semibold uppercase tracking-wider transition-colors
-              ${tab === t
-                ? 'text-violet-400 border-b-2 border-violet-500 bg-slate-800/50'
-                : 'text-slate-500 hover:text-slate-300'
-              }
-            `}
-          >
-            {t === 'gates' ? 'Gates' : 'Library'}
-          </button>
-        ))}
+      <div
+        className="flex"
+        style={{ borderBottom: '1px solid var(--border-dim)' }}
+      >
+        {(['gates', 'library'] as Tab[]).map(t => {
+          const active = tab === t
+          return (
+            <button
+              key={t}
+              onClick={() => setTab(t)}
+              style={{
+                flex: 1,
+                padding: '10px 0',
+                fontFamily: 'var(--font-display)',
+                fontSize: 10,
+                letterSpacing: '0.14em',
+                textTransform: 'uppercase',
+                cursor: 'pointer',
+                background: 'transparent',
+                border: 'none',
+                borderBottom: active ? '2px solid var(--amber)' : '2px solid transparent',
+                color: active ? 'var(--amber)' : 'var(--text-dim)',
+                transition: 'color 0.15s, border-color 0.15s',
+              }}
+              onMouseEnter={e => {
+                if (!active) e.currentTarget.style.color = 'var(--text-primary)'
+              }}
+              onMouseLeave={e => {
+                if (!active) e.currentTarget.style.color = 'var(--text-dim)'
+              }}
+            >
+              {t === 'gates' ? 'GATES' : 'LIBRARY'}
+            </button>
+          )
+        })}
       </div>
 
       {/* Content */}

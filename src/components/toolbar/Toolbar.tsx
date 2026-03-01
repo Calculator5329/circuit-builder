@@ -37,30 +37,104 @@ export function Toolbar() {
   }
 
   return (
-    <div className="flex items-center gap-3 px-4 py-2.5 bg-slate-900 border-b border-slate-800 shrink-0">
+    <div
+      className="flex items-center gap-3 px-4 shrink-0"
+      style={{
+        height: 44,
+        background: 'var(--bg-panel)',
+        borderBottom: '1px solid var(--border-mid)',
+        boxShadow: '0 1px 0 var(--border-dim), 0 2px 12px rgba(0,0,0,0.5)',
+      }}
+    >
       {/* Logo */}
-      <div className="flex items-center gap-2 mr-2">
-        <div className="w-6 h-6 rounded bg-violet-600 flex items-center justify-center text-white text-xs font-bold">
-          ⚡
+      <div className="flex items-center gap-2 mr-1 shrink-0">
+        <div
+          style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: 15,
+            color: 'var(--phosphor-hi)',
+            letterSpacing: '0.04em',
+            lineHeight: 1,
+          }}
+        >
+          <span style={{ color: 'var(--amber)' }}>[</span>
+          CB
+          <span style={{ color: 'var(--amber)' }}>]</span>
         </div>
-        <span className="text-slate-300 font-semibold text-sm hidden sm:block">Circuit Builder</span>
+        <div
+          style={{
+            width: 1,
+            height: 20,
+            background: 'var(--border-mid)',
+          }}
+        />
+        <span
+          style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: 10,
+            color: 'var(--text-dim)',
+            letterSpacing: '0.12em',
+            textTransform: 'uppercase',
+          }}
+          className="hidden sm:block"
+        >
+          CIRCUIT·BUILDER
+        </span>
       </div>
 
-      {/* Circuit name */}
-      <div className="flex items-center gap-1">
+      {/* Circuit name — breadcrumb style */}
+      <div className="flex items-center gap-1 min-w-0">
+        <span
+          style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: 10,
+            color: 'var(--text-dim)',
+            letterSpacing: '0.06em',
+            flexShrink: 0,
+          }}
+        >
+          ▶
+        </span>
         {editingName ? (
           <input
             autoFocus
             value={nameVal}
             onChange={e => setNameVal(e.target.value)}
             onBlur={commitName}
-            onKeyDown={e => { if (e.key === 'Enter') commitName(); if (e.key === 'Escape') { setNameVal(circuitName); setEditingName(false) } }}
-            className="bg-slate-700 border border-violet-500 rounded px-2 py-1 text-sm text-white outline-none w-44"
+            onKeyDown={e => {
+              if (e.key === 'Enter') commitName()
+              if (e.key === 'Escape') { setNameVal(circuitName); setEditingName(false) }
+            }}
+            style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: 12,
+              color: 'var(--text-bright)',
+              background: 'var(--bg-surface)',
+              border: '1px solid var(--border-hi)',
+              borderRadius: 2,
+              padding: '2px 8px',
+              outline: 'none',
+              width: 176,
+              letterSpacing: '0.04em',
+            }}
           />
         ) : (
           <button
             onClick={() => { setNameVal(circuitName); setEditingName(true) }}
-            className="text-slate-200 hover:text-white text-sm font-medium px-2 py-1 rounded hover:bg-slate-700 transition-colors"
+            style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: 12,
+              color: 'var(--text-primary)',
+              background: 'transparent',
+              border: 'none',
+              borderRadius: 2,
+              padding: '2px 6px',
+              cursor: 'text',
+              letterSpacing: '0.04em',
+              transition: 'color 0.12s',
+            }}
+            onMouseEnter={e => (e.currentTarget.style.color = 'var(--text-bright)')}
+            onMouseLeave={e => (e.currentTarget.style.color = 'var(--text-primary)')}
           >
             {circuitName}
           </button>
@@ -69,10 +143,28 @@ export function Toolbar() {
 
       <div className="flex-1" />
 
-      {/* Actions */}
+      {/* Node count readout */}
+      {nodes.length > 0 && (
+        <div
+          style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: 9,
+            color: 'var(--text-dim)',
+            letterSpacing: '0.1em',
+            textTransform: 'uppercase',
+            borderLeft: '1px solid var(--border-dim)',
+            paddingLeft: 10,
+          }}
+          className="hidden md:block"
+        >
+          {nodes.length} NODES
+        </div>
+      )}
+
+      {/* Action buttons */}
       <div className="flex items-center gap-2">
         <Button variant="secondary" size="sm" onClick={exportToJSON} title="Export to JSON file">
-          Export
+          EXPORT
         </Button>
         <Button
           variant="secondary"
@@ -80,7 +172,7 @@ export function Toolbar() {
           onClick={() => fileInputRef.current?.click()}
           title="Import from JSON file"
         >
-          Import
+          IMPORT
         </Button>
         <input ref={fileInputRef} type="file" accept=".json" className="hidden" onChange={handleImport} />
         <Button
@@ -90,18 +182,25 @@ export function Toolbar() {
           disabled={nodes.length === 0}
           title="Clear canvas"
         >
-          Clear
+          CLR
         </Button>
       </div>
 
       {/* Confirm clear modal */}
-      <Modal open={clearConfirm} onClose={() => setClearConfirm(false)} title="Clear Canvas?">
-        <p className="text-slate-300 text-sm mb-4">
-          This will remove all nodes and wires. This action cannot be undone.
+      <Modal open={clearConfirm} onClose={() => setClearConfirm(false)} title="CLEAR CANVAS?">
+        <p style={{
+          fontFamily: 'var(--font-mono)',
+          fontSize: 12,
+          color: 'var(--text-primary)',
+          marginBottom: 16,
+          lineHeight: 1.6,
+        }}>
+          This will erase all nodes and wires.<br />
+          <span style={{ color: 'var(--danger)', fontSize: 11 }}>This action cannot be undone.</span>
         </p>
         <div className="flex gap-2 justify-end">
-          <Button variant="ghost" onClick={() => setClearConfirm(false)}>Cancel</Button>
-          <Button variant="danger" onClick={() => { clearCanvas(); setClearConfirm(false) }}>Clear</Button>
+          <Button variant="ghost" onClick={() => setClearConfirm(false)}>CANCEL</Button>
+          <Button variant="danger" onClick={() => { clearCanvas(); setClearConfirm(false) }}>CLR</Button>
         </div>
       </Modal>
     </div>

@@ -13,37 +13,50 @@ export function WireEdge({
   const signal = wireData?.signal ?? null
 
   let stroke: string
+  let strokeWidth: number
   let strokeDasharray: string | undefined
+  let filterClass: string | undefined
 
-  if (signal === 1) {
-    stroke = '#22c55e'       // green — high
+  if (selected) {
+    stroke = '#ffb300'
+    strokeWidth = 2.5
+    filterClass = undefined
+  } else if (signal === 1) {
+    stroke = '#00ff41'
+    strokeWidth = 2.5
+    filterClass = 'wire-high'
   } else if (signal === 0) {
-    stroke = '#475569'       // slate-600 — low
+    stroke = '#1a3a1a'
+    strokeWidth = 1.5
+    filterClass = undefined
   } else {
-    stroke = '#334155'       // slate-700 — floating
-    strokeDasharray = '4 3'
+    stroke = '#ffb300'
+    strokeWidth = 1.5
+    strokeDasharray = '5 4'
+    filterClass = undefined
   }
-
-  if (selected) stroke = '#60a5fa' // blue when selected
 
   return (
     <>
-      {/* Wider invisible hit area */}
+      {/* Wide invisible hit area */}
       <path
         id={id}
         d={path}
         fill="none"
-        strokeWidth={12}
+        strokeWidth={14}
         stroke="transparent"
         className="react-flow__edge-interaction"
       />
+      {/* Visible wire */}
       <path
         d={path}
         fill="none"
-        strokeWidth={selected ? 3 : 2}
+        strokeWidth={strokeWidth}
         stroke={stroke}
         strokeDasharray={strokeDasharray}
-        className="react-flow__edge-path"
+        strokeLinecap="round"
+        className={`react-flow__edge-path${filterClass ? ` ${filterClass}` : ''}`}
+        style={{ opacity: signal === 0 ? 0.55 : 1 }}
       />
     </>
   )

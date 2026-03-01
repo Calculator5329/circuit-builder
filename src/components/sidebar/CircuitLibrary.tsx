@@ -21,6 +21,19 @@ export function CircuitLibrary() {
     setSaveOpen(false)
   }
 
+  const inputStyle = {
+    width: '100%',
+    background: 'var(--bg-surface)',
+    border: '1px solid var(--border-mid)',
+    borderRadius: 2,
+    padding: '6px 10px',
+    fontFamily: 'var(--font-mono)',
+    fontSize: 12,
+    color: 'var(--text-bright)',
+    outline: 'none',
+    transition: 'border-color 0.12s',
+  }
+
   return (
     <div className="flex flex-col gap-2 p-3">
       <Button
@@ -30,20 +43,43 @@ export function CircuitLibrary() {
         disabled={nodes.length === 0}
         className="w-full justify-center"
       >
-        + Save current as component
+        + SAVE AS COMPONENT
       </Button>
 
       {!hasIO && nodes.length > 0 && (
-        <p className="text-[10px] text-amber-500/80 px-1">
-          Tip: add INPUT and OUTPUT nodes to define this component's ports.
+        <p style={{
+          fontFamily: 'var(--font-mono)',
+          fontSize: 10,
+          color: '#7a5500',
+          padding: '4px 4px',
+          lineHeight: 1.5,
+          borderLeft: '2px solid #ffb30044',
+          paddingLeft: 8,
+        }}>
+          TIP: add INPUT + OUTPUT nodes to define this component's ports.
         </p>
       )}
 
       {savedCircuits.length === 0 ? (
-        <p className="text-xs text-slate-500 text-center py-6">
-          No saved components yet.
-          <br />Build a circuit and save it!
-        </p>
+        <div style={{
+          textAlign: 'center',
+          padding: '28px 0',
+        }}>
+          <div style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: 22,
+            color: 'var(--border-dim)',
+            marginBottom: 8,
+          }}>[ ]</div>
+          <p style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: 10,
+            color: 'var(--text-dim)',
+            lineHeight: 1.6,
+          }}>
+            No saved components.<br />Build a circuit and save it!
+          </p>
+        </div>
       ) : (
         <div className="flex flex-col gap-1.5 mt-1">
           {savedCircuits.map(sc => (
@@ -52,31 +88,55 @@ export function CircuitLibrary() {
         </div>
       )}
 
-      <Modal open={saveOpen} onClose={() => setSaveOpen(false)} title="Save as Component">
+      <Modal open={saveOpen} onClose={() => setSaveOpen(false)} title="SAVE AS COMPONENT">
         <div className="flex flex-col gap-3">
           <div>
-            <label className="block text-xs text-slate-400 mb-1">Name *</label>
+            <label style={{
+              display: 'block',
+              fontFamily: 'var(--font-display)',
+              fontSize: 9,
+              color: 'var(--text-dim)',
+              letterSpacing: '0.12em',
+              marginBottom: 6,
+              textTransform: 'uppercase',
+            }}>
+              Name *
+            </label>
             <input
               autoFocus
               value={name}
               onChange={e => setName(e.target.value)}
               onKeyDown={e => { if (e.key === 'Enter') handleSave() }}
               placeholder="e.g. Half Adder"
-              className="w-full bg-slate-700 border border-slate-600 focus:border-violet-500 rounded-lg px-3 py-2 text-sm text-white outline-none transition-colors"
+              style={inputStyle}
+              onFocus={e => (e.target.style.borderColor = 'var(--border-hi)')}
+              onBlur={e => (e.target.style.borderColor = 'var(--border-mid)')}
             />
           </div>
           <div>
-            <label className="block text-xs text-slate-400 mb-1">Description (optional)</label>
+            <label style={{
+              display: 'block',
+              fontFamily: 'var(--font-display)',
+              fontSize: 9,
+              color: 'var(--text-dim)',
+              letterSpacing: '0.12em',
+              marginBottom: 6,
+              textTransform: 'uppercase',
+            }}>
+              Description (optional)
+            </label>
             <input
               value={desc}
               onChange={e => setDesc(e.target.value)}
               placeholder="What does this circuit do?"
-              className="w-full bg-slate-700 border border-slate-600 focus:border-violet-500 rounded-lg px-3 py-2 text-sm text-white outline-none transition-colors"
+              style={inputStyle}
+              onFocus={e => (e.target.style.borderColor = 'var(--border-hi)')}
+              onBlur={e => (e.target.style.borderColor = 'var(--border-mid)')}
             />
           </div>
           <div className="flex gap-2 justify-end mt-1">
-            <Button variant="ghost" onClick={() => setSaveOpen(false)}>Cancel</Button>
-            <Button variant="primary" onClick={handleSave} disabled={!name.trim()}>Save</Button>
+            <Button variant="ghost" onClick={() => setSaveOpen(false)}>CANCEL</Button>
+            <Button variant="primary" onClick={handleSave} disabled={!name.trim()}>SAVE</Button>
           </div>
         </div>
       </Modal>

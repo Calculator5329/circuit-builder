@@ -1,0 +1,31 @@
+---
+description: After completing any code changes, commit and push to main
+alwaysApply: true
+---
+
+# Commit and Push After Every Change
+
+After completing **any** code change in this project, you MUST:
+
+1. **Stage all relevant files** — `git add` the files you changed (avoid blanket `git add .` if unrelated files exist)
+2. **Commit with a descriptive message** — follow the existing commit style from `git log`
+3. **Push to main** — `git push origin main`
+
+## Commit Message Format
+
+Use a concise imperative message (same style as the repo history):
+
+```
+git commit -m "$(cat <<'EOF'
+Short summary of what changed and why
+
+EOF
+)"
+```
+
+## Rules
+
+- Never end a task without committing and pushing
+- Do NOT force push (`--force`) unless the user explicitly asks
+- Do NOT skip hooks (`--no-verify`) unless the user explicitly asks
+- If the push fails (e.g. remote has diverged), report the error and ask the user how to proceed — do not auto-rebase or auto-merge
