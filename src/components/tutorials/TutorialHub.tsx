@@ -15,7 +15,7 @@ function WelcomeHero({ onStart, onSandbox }: { onStart: () => void; onSandbox: (
       alignItems: 'center',
       justifyContent: 'center',
       textAlign: 'center',
-      padding: '80px 24px 56px',
+      padding: '56px 24px 40px',
     }}>
       {/* Radial glow */}
       <div style={{
@@ -60,7 +60,7 @@ function WelcomeHero({ onStart, onSandbox }: { onStart: () => void; onSandbox: (
         fontSize: 13,
         color: 'var(--text-primary)',
         lineHeight: 1.8,
-        margin: '0 0 44px',
+        margin: '0 0 36px',
         maxWidth: 460,
         position: 'relative',
       }}>
@@ -296,7 +296,7 @@ export function TutorialHub() {
 
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(360px, 1fr))',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
             gap: 10,
           }}>
             {TRACKS.map(track => (
