@@ -43,3 +43,22 @@ export function getTutorialsForTrack(trackId: string): TutorialDefinition[] {
 export function getTrackById(trackId: string): TutorialTrack | undefined {
   return TRACKS.find(t => t.id === trackId)
 }
+
+export function getNextTutorial(currentId: string): TutorialDefinition | undefined {
+  const current = getTutorialById(currentId)
+  if (!current) return undefined
+
+  const trackTutorials = getTutorialsForTrack(current.trackId)
+  const idx = trackTutorials.findIndex(t => t.id === currentId)
+  if (idx >= 0 && idx < trackTutorials.length - 1) {
+    return trackTutorials[idx + 1]
+  }
+
+  const currentTrack = TRACKS.find(t => t.id === current.trackId)
+  if (!currentTrack) return undefined
+  const nextTrack = TRACKS.find(t => t.order === currentTrack.order + 1)
+  if (!nextTrack) return undefined
+
+  const nextTrackTutorials = getTutorialsForTrack(nextTrack.id)
+  return nextTrackTutorials[0]
+}

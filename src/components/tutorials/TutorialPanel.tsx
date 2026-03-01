@@ -25,12 +25,15 @@ export function TutorialPanel() {
   const exitTutorial = useTutorialStore(s => s.exitTutorial)
   const resetTutorial = useTutorialStore(s => s.resetTutorial)
   const revealNextHint = useTutorialStore(s => s.revealNextHint)
+  const advanceToNext = useTutorialStore(s => s.advanceToNext)
+  const nextTutorial = useTutorialStore(s => s.getNextUnlockedTutorial())
   const progress = useTutorialStore(s => s.progress)
   const savedCircuits = useCircuitStore(s => s.savedCircuits)
 
   if (!tutorial) return null
 
   const isCompleted = progress.completedTutorials.includes(tutorial.id)
+  const justPassed = verificationResult?.passed === true
 
   const availableComponentCircuits: SavedCircuit[] = tutorial.availableComponents
     .map(tutId => {
@@ -42,23 +45,29 @@ export function TutorialPanel() {
   const hasHints = tutorial.hints.length > 0
   const canShowMoreHints = hintIndex < tutorial.hints.length - 1
 
+  const difficultyDots = Array.from({ length: 5 }, (_, i) => i < tutorial.difficulty)
+
   return (
     <div className="flex flex-col h-full" style={{
       background: 'var(--bg-panel)',
       borderRight: '1px solid var(--border-mid)',
-      width: 272,
+      width: 288,
     }}>
       {/* Tutorial header */}
       <div style={{
-        padding: '12px 14px',
+        padding: '14px 16px 12px',
         borderBottom: '1px solid var(--border-mid)',
+        background: justPassed
+          ? 'linear-gradient(180deg, rgba(34,197,94,0.06) 0%, transparent 100%)'
+          : 'transparent',
       }}>
-        <div className="flex items-center justify-between" style={{ marginBottom: 6 }}>
+        <div className="flex items-center justify-between" style={{ marginBottom: 4 }}>
           <div style={{
             fontFamily: 'var(--font-display)',
-            fontSize: 13,
-            color: isCompleted ? '#22c55e' : 'var(--text-bright)',
+            fontSize: 15,
+            color: justPassed ? '#22c55e' : 'var(--text-bright)',
             letterSpacing: '0.04em',
+            lineHeight: 1.2,
           }}>
             {tutorial.name}
           </div>
@@ -66,37 +75,64 @@ export function TutorialPanel() {
             Exit
           </Button>
         </div>
-        {isCompleted && (
-          <div style={{
-            fontFamily: 'var(--font-display)',
-            fontSize: 9,
-            color: '#22c55e',
-            letterSpacing: '0.08em',
-            padding: '2px 6px',
-            background: '#052e16',
-            border: '1px solid #166534',
-            borderRadius: 2,
-            display: 'inline-block',
-            marginBottom: 4,
-          }}>
-            COMPLETED
+
+        <div className="flex items-center gap-3" style={{ marginTop: 4 }}>
+          <div className="flex gap-0.5">
+            {difficultyDots.map((filled, i) => (
+              <div key={i} style={{
+                width: 5,
+                height: 5,
+                borderRadius: '50%',
+                background: filled ? '#8b5cf6' : 'var(--border-dim)',
+              }} />
+            ))}
           </div>
-        )}
+          {isCompleted && (
+            <div style={{
+              fontFamily: 'var(--font-display)',
+              fontSize: 9,
+              color: '#22c55e',
+              letterSpacing: '0.08em',
+              padding: '1px 6px',
+              background: '#052e16',
+              border: '1px solid #166534',
+              borderRadius: 2,
+            }}>
+              COMPLETED
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Scrollable content */}
-      <div className="flex-1 overflow-y-auto scrollbar-thin" style={{ padding: '10px 14px' }}>
+      <div className="flex-1 overflow-y-auto scrollbar-thin" style={{ padding: '12px 16px' }}>
         {/* Briefing */}
-        <SectionLabel label="Briefing" />
         <div style={{
-          fontFamily: 'var(--font-mono)',
-          fontSize: 10,
-          color: 'var(--text-primary)',
-          lineHeight: 1.65,
-          marginBottom: 14,
-          whiteSpace: 'pre-wrap',
+          padding: '12px 14px',
+          borderRadius: 5,
+          background: 'var(--bg-surface)',
+          border: '1px solid var(--border-mid)',
+          marginBottom: 16,
         }}>
-          {tutorial.briefing}
+          <div style={{
+            fontFamily: 'var(--font-display)',
+            fontSize: 9,
+            color: '#8b5cf6',
+            letterSpacing: '0.12em',
+            textTransform: 'uppercase',
+            marginBottom: 8,
+          }}>
+            Instructions
+          </div>
+          <div style={{
+            fontFamily: 'var(--font-mono)',
+            fontSize: 11,
+            color: 'var(--text-bright)',
+            lineHeight: 1.7,
+            whiteSpace: 'pre-wrap',
+          }}>
+            {tutorial.briefing}
+          </div>
         </div>
 
         {/* Available gates */}
@@ -171,7 +207,7 @@ export function TutorialPanel() {
         )}
 
         {/* Unlock info */}
-        {verificationResult?.passed && tutorial.unlocksComponent && (
+        {justPassed && tutorial.unlocksComponent && (
           <div style={{
             padding: '10px 12px',
             borderRadius: 4,
@@ -209,17 +245,41 @@ export function TutorialPanel() {
 
       {/* Bottom actions */}
       <div style={{
-        padding: '10px 14px',
+        padding: '10px 16px',
         borderTop: '1px solid var(--border-mid)',
         display: 'flex',
+        flexDirection: 'column',
         gap: 8,
       }}>
-        <Button variant="ghost" size="sm" onClick={resetTutorial} style={{ flex: 1 }}>
-          Reset
-        </Button>
-        <Button variant="primary" size="sm" onClick={verify} style={{ flex: 2 }}>
-          Verify
-        </Button>
+        {justPassed ? (
+          <>
+            <Button
+              variant="primary"
+              size="md"
+              onClick={advanceToNext}
+              style={{ width: '100%', justifyContent: 'center' }}
+            >
+              {nextTutorial ? `Next: ${nextTutorial.name}` : 'Back to Hub'}
+            </Button>
+            <div className="flex gap-2">
+              <Button variant="ghost" size="sm" onClick={resetTutorial} style={{ flex: 1 }}>
+                Redo
+              </Button>
+              <Button variant="ghost" size="sm" onClick={exitTutorial} style={{ flex: 1 }}>
+                Hub
+              </Button>
+            </div>
+          </>
+        ) : (
+          <div className="flex gap-2">
+            <Button variant="ghost" size="sm" onClick={resetTutorial} style={{ flex: 1 }}>
+              Reset
+            </Button>
+            <Button variant="primary" size="sm" onClick={verify} style={{ flex: 2 }}>
+              Verify
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   )

@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import type { TutorialDefinition, TutorialProgress, VerificationResult } from '../types/tutorial'
-import { ALL_TUTORIALS, getTutorialById } from '../tutorials/tracks'
+import { ALL_TUTORIALS, getTutorialById, getNextTutorial } from '../tutorials/tracks'
 import { verifyCircuit } from '../tutorials/verification'
 import { useCircuitStore } from './circuitStore'
 import { createGateNode } from '../utils/nodeFactory'
@@ -37,6 +37,8 @@ interface TutorialStore {
   verify: () => void
   resetTutorial: () => void
   revealNextHint: () => void
+  advanceToNext: () => void
+  getNextUnlockedTutorial: () => TutorialDefinition | undefined
   isTutorialUnlocked: (tutorialId: string) => boolean
   isTrackAccessible: (trackId: string) => boolean
 
@@ -148,6 +150,23 @@ export const useTutorialStore = create<TutorialStore>((set, get) => ({
     if (hintIndex < activeTutorial.hints.length - 1) {
       set({ hintIndex: hintIndex + 1 })
     }
+  },
+
+  advanceToNext: () => {
+    const next = get().getNextUnlockedTutorial()
+    if (next) {
+      get().startTutorial(next.id)
+    } else {
+      get().exitTutorial()
+    }
+  },
+
+  getNextUnlockedTutorial: () => {
+    const { activeTutorial } = get()
+    if (!activeTutorial) return undefined
+    const next = getNextTutorial(activeTutorial.id)
+    if (next && get().isTutorialUnlocked(next.id)) return next
+    return undefined
   },
 
   isTutorialUnlocked: (tutorialId) => {
