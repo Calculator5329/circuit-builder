@@ -86,6 +86,10 @@ export const useCircuitStore = create<CircuitStore>((set, get) => ({
 
   onConnect: (connection: Connection) => {
     set(state => {
+      const tgtHandle = connection.targetHandle ?? 'in0'
+      const existingRemoved = state.edges.filter(
+        e => !(e.target === connection.target && (e.targetHandle ?? 'in0') === tgtHandle)
+      )
       const newEdge: WireEdge = {
         id: `e-${connection.source}-${connection.sourceHandle ?? 'out'}-${connection.target}-${connection.targetHandle ?? 'in'}-${Date.now()}`,
         source: connection.source,
@@ -95,7 +99,7 @@ export const useCircuitStore = create<CircuitStore>((set, get) => ({
         type: 'wire',
         data: { signal: null },
       }
-      return { edges: addEdge(newEdge, state.edges) as WireEdge[], isDirty: true }
+      return { edges: addEdge(newEdge, existingRemoved) as WireEdge[], isDirty: true }
     })
     get().runSimulation()
   },
