@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <rect width="64" height="64" rx="14" fill="#0f172a"/>
+  <rect x="2" y="2" width="60" height="60" rx="12" stroke="#3b82f6" stroke-width="1.5" stroke-opacity="0.3"/>
+
+  <!-- Input wires -->
+  <line x1="8" y1="22" x2="20" y2="22" stroke="#60a5fa" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="8" y1="42" x2="20" y2="42" stroke="#60a5fa" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- AND gate body -->
+  <path d="M20 14 L32 14 C44 14 44 50 32 50 L20 50 Z" stroke="#60a5fa" stroke-width="2.5" fill="#1e3a5f" stroke-linejoin="round"/>
+
+  <!-- Output wire -->
+  <line x1="38" y1="32" x2="56" y2="32" stroke="#34d399" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Input dots -->
+  <circle cx="10" cy="22" r="3" fill="#60a5fa"/>
+  <circle cx="10" cy="42" r="3" fill="#60a5fa"/>
+
+  <!-- Output dot (lit up / active) -->
+  <circle cx="54" cy="32" r="3.5" fill="#34d399"/>
+  <circle cx="54" cy="32" r="6" fill="#34d399" opacity="0.2"/>
+
+  <!-- Tiny circuit traces for texture -->
+  <line x1="8" y1="54" x2="16" y2="54" stroke="#3b82f6" stroke-width="1" stroke-opacity="0.25" stroke-linecap="round"/>
+  <line x1="16" y1="54" x2="16" y2="58" stroke="#3b82f6" stroke-width="1" stroke-opacity="0.25" stroke-linecap="round"/>
+  <line x1="48" y1="10" x2="56" y2="10" stroke="#3b82f6" stroke-width="1" stroke-opacity="0.25" stroke-linecap="round"/>
+  <line x1="48" y1="10" x2="48" y2="6" stroke="#3b82f6" stroke-width="1" stroke-opacity="0.25" stroke-linecap="round"/>
+</svg>
