@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-07-15 — Roadmap identity clarification
+
+- Labeled the tracked lowercase roadmap as the legacy upstream backlog so
+  knowledge/search views can distinguish it from the newer working plan. No
+  roadmap content or task state changed.
+
 ## 2026-02-28 — Tutorial Progression System
 
 ### Added

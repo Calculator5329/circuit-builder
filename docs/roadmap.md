@@ -1,4 +1,7 @@
-# Circuit Builder — Roadmap
+# Circuit Builder — Legacy Upstream Roadmap
+
+> Preserved as the original shipped-feature backlog. The newer working plan is
+> maintained separately in `docs/ROADMAP.md`.
 
 ## Completed
 
