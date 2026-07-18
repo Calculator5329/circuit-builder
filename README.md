@@ -1,5 +1,9 @@
 # Circuit Builder
 
+**Live app → [circuit-builder-d5ea8.web.app](https://circuit-builder-d5ea8.web.app)**
+
+![circuit-builder screenshot](docs/screenshots/app.png)
+
 An interactive digital circuit design and simulation tool built with React Flow for designing and testing logic circuits.
 
 ## What It Is
@@ -38,6 +42,3 @@ The app will be available at `http://localhost:5173`
 npm run build
 ```
 
-## GitHub
-
-https://github.com/Calculator5329/circuit-builder
